@@ -1,0 +1,15 @@
+---
+- triggers:
+    - name: oneTrue
+  processors:
+    - type: transformer
+      name: objToStr
+    - type: action
+      name: mail.gSend
+      options:
+        clientIdVar: clId
+        clientSecretVar: clSr
+        to: massimiliano.dl@pm.me
+        subject: subject-foo
+        text: this is a test
+        from: delu.script@gmail.com

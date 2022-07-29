@@ -1,0 +1,29 @@
+---
+- triggers:
+    - name: page
+      options:
+        url: https://duckduckgo.com
+        onChange: false
+        period: 5
+        repeat: 3
+  processors:
+    - type: filterOperator
+      name: or
+      filters:
+        - type: filterOperator
+          name: not
+          filters:
+            - type: filter
+              name: eq
+              options:
+                compareValue: 90b2cbd82f8bd4b0e1fb586a6b916e7b
+        - type: filter
+          name: eq
+          options:
+            compareValue: bbb
+    - type: transformer
+      name: objToStr
+    - type: action
+      name: print
+      options:
+        text: "### LOG: %s"

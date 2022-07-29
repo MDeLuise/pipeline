@@ -1,0 +1,13 @@
+---
+- triggers:
+    - name: perTrue
+      options: # or you can also use options: {"delay": 5, "period": 2}
+        delay: 5
+        period: 2
+  processors:
+    - type: transformer
+      name: objToStr
+    - type: action
+      name: print
+      options: # or you can also use options: {"text": "### LOG: "}
+        text: "### LOG: this is the log"

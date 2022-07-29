@@ -1,0 +1,70 @@
+[
+  {
+    "triggers": [
+      {
+        "name": "element",
+        "options": {
+          "url": "https://stackoverflow.com/",
+          "selector": ".js-billed-annually",
+          "onChange": false,
+          "period": 5,
+          "repeat": 3
+        }
+      }
+    ],
+    "processors": [
+      {
+        "type": "filterOperator",
+        "name": "not",
+        "filters": [
+          {
+            "type": "filter",
+            "name": "eq",
+            "options": {
+              "compareValue": "AAA"
+            }
+          }
+        ]
+      },
+      {
+        "type": "transformer",
+        "name": "objToStr"
+      },
+      {
+        "type": "action",
+        "name": "print"
+      }
+    ]
+  },
+  {
+    "triggers": [
+      {
+        "name": "perTrue",
+        "options": {
+          "period": 5,
+          "repeat": 4
+        }
+      },
+      {
+        "name": "oneTrue",
+        "options": {
+          "delay": 5,
+          "repeat": 10
+        }
+      }
+    ],
+    "processors": [
+      {
+        "type": "transformer",
+        "name": "objToStr"
+      },
+      {
+        "type": "action",
+        "name": "print",
+        "options": {
+          "text": "### LOG2: this is the log from the second pipeline"
+        }
+      }
+    ]
+  }
+]

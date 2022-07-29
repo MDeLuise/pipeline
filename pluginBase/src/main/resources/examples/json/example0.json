@@ -1,0 +1,26 @@
+[
+  {
+    "triggers": [
+      {
+        "name": "perTrue",
+        "options": {
+          "delay": 5,
+          "period": 2
+        }
+      }
+    ],
+    "processors": [
+      {
+        "type": "transformer",
+        "name": "objToStr"
+      },
+      {
+        "type": "action",
+        "name": "print",
+        "options": {
+          "text": "### LOG: this is the log"
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,5 @@
+mvn clean install -DskipTests -Dcheckstyle.skip;
+mvn package -DskipTests -Dcheckstyle.skip -pl releaseModule
+cd releaseModule/target/
+
+java -jar releaseModule-1.0-SNAPSHOT.jar -f ../../pluginBase/src/main/resources/examples/yaml/example0.yaml

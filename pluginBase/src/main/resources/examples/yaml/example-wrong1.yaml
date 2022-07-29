@@ -1,0 +1,22 @@
+---
+- triggers:
+    - name: perTrue
+  processors:
+    - type: filterOperator
+      name: or
+      filters:
+        - type: filter
+          name: eq
+          options:
+            compareValue: 42
+        - type: filterOperator
+          name: not
+          filters:
+            - type: filter
+              name: eq
+              options:
+                compareValue: 42
+    - type: action
+      name: print
+      options:
+        text: "### LOG: %s"

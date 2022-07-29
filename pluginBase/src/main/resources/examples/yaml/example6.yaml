@@ -1,0 +1,12 @@
+---
+- triggers:
+    - name: ip
+      options:
+        delay: 5
+        period: 2
+        repeat: 3
+  processors:
+    - type: action
+      name: print
+      options:
+        text: "### current ip: %s"

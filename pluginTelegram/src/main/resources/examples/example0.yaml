@@ -1,0 +1,17 @@
+---
+- triggers:
+    - name: ip
+      options:
+        period: 5
+        repeat: 2
+        onChange: false
+  processors:
+    - type: action
+      name: tg.send
+      options:
+        tokenVar: token
+        chatIdVar: chId
+    - type: action
+      name: print
+      options:
+        text: "### current ip: %s"

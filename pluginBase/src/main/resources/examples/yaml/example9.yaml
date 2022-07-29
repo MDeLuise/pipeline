@@ -1,0 +1,16 @@
+---
+- triggers:
+    - name: page
+      options:
+        url: https://duckduckgo.com
+        onChange: false
+        period: 5
+        repeat: 3
+        delay: 10
+  processors:
+    - type: transformer
+      name: objToStr
+    - type: action
+      name: bScript
+      options:
+        script: pluginBase/src/main/resources/sample-script.sh

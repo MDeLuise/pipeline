@@ -1,0 +1,34 @@
+[
+  {
+    "triggers": [
+      {
+        "name": "page",
+        "options": {
+          "url": "https://duckduckgo.com",
+          "onChange": false,
+          "period": 5,
+          "repeat": 3
+        }
+      }
+    ],
+    "processors": [
+      {
+        "type": "transformer",
+        "name": "intThr",
+        "options": {
+          "compareValue": 29,
+          "lt": "%s less than 29",
+          "gt": "%s greater than 29",
+          "eq": "equals to 29!"
+        }
+      },
+      {
+        "type": "action",
+        "name": "print",
+        "options": {
+          "text": "### %s"
+        }
+      }
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+---
+- triggers:
+    - name: tg.receive
+      options:
+        delay: 3
+        period: 5
+        repeat: 2
+        tokenVar: token
+        stateId: tg1
+  processors:
+    - type: transformer
+      name: tg.upToStr
+    - type: action
+      name: print
+      options:
+        text: "### received raw telegram message: %s"
+    - type: transformer
+      name: jsonExt
+      options:
+        field: message text
+    - type: action
+      name: print
+      options:
+        text: "### received telegram message text: %s"

@@ -1,0 +1,6 @@
+pluginName=pluginBase
+pluginPackage=plugin.base
+triggerPackages=plugin.base.trigger
+actionPackages=plugin.base.action
+filterPackages=plugin.base.modifier.filter
+transformerPackages=plugin.base.modifier.transformer

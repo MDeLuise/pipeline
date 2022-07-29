@@ -1,0 +1,12 @@
+---
+- triggers:
+    - name: oneTrue
+  processors:
+    - type: filter
+      name: eq
+      options:
+        compareValue: 42
+    - type: action
+      name: print
+      options:
+        text: "### LOG: %s"

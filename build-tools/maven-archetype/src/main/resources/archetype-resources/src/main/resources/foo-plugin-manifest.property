@@ -1,0 +1,6 @@
+pluginName=${artifactId}
+pluginPackage=${groupId}
+triggerPackages=${groupId}.trigger
+actionPackages=${groupId}.action
+filterPackages=${groupId}.filter
+transformerPackages=${groupId}.transformer

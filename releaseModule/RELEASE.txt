@@ -1,0 +1,9 @@
+# change Application call to PluginsProcessor.getAllManifestPluginFilesInDir(true)
+
+# add all plugin as dependency of releaseModule
+
+mvn clean
+mvn package
+cd releaseModule/target/
+
+java -jar releaseModule-1.0-SNAPSHOT.jar -f ../../pluginBase/src/main/resources/examples/yaml/example0.yaml

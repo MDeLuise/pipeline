@@ -1,0 +1,20 @@
+---
+- triggers:
+    - name: page
+      options:
+        url: https://duckduckgo.com
+        onChange: false
+        period: 5
+        repeat: 3
+        delay: 10
+  processors:
+    - type: filter
+      name: gt
+      options:
+        compareValue: a1aa1aa11a111c3d5ea2845af728643
+    - type: transformer
+      name: objToStr
+    - type: action
+      name: print
+      options:
+        text: "### %s"

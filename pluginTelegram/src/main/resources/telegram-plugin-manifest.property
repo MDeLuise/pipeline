@@ -1,0 +1,6 @@
+pluginName=pluginTelegram
+pluginPackage=plugin.telegram
+triggerPackages=plugin.telegram.trigger
+actionPackages=plugin.telegram.action
+filterPackages=plugin.telegram.modifier.filter
+transformerPackages=plugin.telegram.modifier.transformer

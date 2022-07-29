@@ -1,0 +1,6 @@
+pluginName=pluginEmail
+pluginPackage=plugin.email
+triggerPackages=plugin.email.trigger
+actionPackages=plugin.email.action
+filterPackages=plugin.email.filter
+transformerPackages=plugin.email.transformer

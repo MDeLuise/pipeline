@@ -1,0 +1,6 @@
+pluginName=pluginYoutube
+pluginPackage=plugin.youtube
+triggerPackages=plugin.youtube.trigger
+actionPackages=plugin.youtube.action
+filterPackages=plugin.youtube.filter
+transformerPackages=plugin.youtube.transformer

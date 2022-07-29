@@ -1,0 +1,22 @@
+---
+- triggers:
+    - name: yt.video
+      options:
+        channelId: UCE_M8A5yxnLfW0KghEeajjw
+        stateId: ytvideo0
+  processors:
+    - type: transformer
+      name: objToStr
+    - type: transformer
+      name: jsonExt
+      options:
+        field: url
+    - type: action
+      name: tg.send
+      options:
+        tokenVar: token
+        chatIdVar: chId
+    - type: action
+      name: print
+      options:
+        text: sent %s

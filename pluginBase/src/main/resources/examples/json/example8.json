@@ -1,0 +1,43 @@
+[
+  {
+    "triggers": [
+      {
+        "name": "rand",
+        "options": {
+          "max": 42,
+          "min": 8,
+          "repeat": 10
+        }
+      }
+    ],
+    "processors": [
+      {
+        "type": "transformer",
+        "name": "intThr",
+        "options": {
+          "compareValue": 29,
+          "lt": "%s less than 29",
+          "gt": "%s greater than 29",
+          "eq": "equals to 29!"
+        }
+      },
+      {
+        "type": "transformer",
+        "name": "intThr",
+        "options": {
+          "compareValue": 29,
+          "lt": "%s less than 29",
+          "gt": "%s greater than 29",
+          "eq": "equals to 29!"
+        }
+      },
+      {
+        "type": "action",
+        "name": "print",
+        "options": {
+          "text": "### %s"
+        }
+      }
+    ]
+  }
+]

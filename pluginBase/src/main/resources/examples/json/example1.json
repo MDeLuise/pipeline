@@ -1,0 +1,54 @@
+[
+  {
+    "triggers": [
+      {
+        "name": "page",
+        "options": {
+          "url": "https://duckduckgo.com",
+          "onChange": false,
+          "period": 5,
+          "repeat": 3
+        }
+      }
+    ],
+    "processors": [
+      {
+        "type": "filterOperator",
+        "name": "or",
+        "filters": [
+          {
+            "type": "filterOperator",
+            "name": "not",
+            "filters": [
+              {
+                "type": "filter",
+                "name": "eq",
+                "options": {
+                  "compareValue": "42"
+                }
+              }
+            ]
+          },
+          {
+            "type": "filter",
+            "name": "eq",
+            "options": {
+              "compareValue": "42"
+            }
+          }
+        ]
+      },
+      {
+        "type": "transformer",
+        "name": "objToStr"
+      },
+      {
+        "type": "action",
+        "name": "print",
+        "options": {
+          "text": "### LOG: %s"
+        }
+      }
+    ]
+  }
+]

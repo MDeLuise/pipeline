@@ -1,0 +1,34 @@
+[
+
+  {
+    "triggers": [
+      {
+        "name": "element",
+        "options": {
+          "url": "https://stackoverflow.com/",
+          "selector": ".js-billed-annually",
+          "onChange": false,
+          "period": 3,
+          "repeat": 3
+        }
+      }
+    ],
+    "processors": [
+      {
+        "type": "transformer",
+        "name": "regexExt",
+        "options" : {
+          "pattern": "\\$\\d+"
+        }
+      },
+      {
+        "type": "action",
+        "name": "print",
+        "options": {
+          "text": "### Annual billing of stackoverflow basic plan: %s"
+        }
+      }
+    ]
+  }
+
+]
