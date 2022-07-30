@@ -15,7 +15,6 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.security.CodeSource;
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.zip.ZipEntry;
@@ -24,11 +23,9 @@ import java.util.zip.ZipInputStream;
 public class PluginsProcessor {
     private static final Logger LOG = LoggerFactory.getLogger(PluginsProcessor.class);
 
-    public static Set<File> getAllManifestPluginFilesInDir(boolean isRelease) {
+    public static Set<File> getAllManifestPluginFilesInDir() {
         final String ENDING_STR = "plugin-manifest.property";
-        return isRelease ?
-                getAllManifestPluginFilesInJar(ENDING_STR) :
-                getAllManifestPluginFilesInDir(new File("."), new HashSet<>(), ENDING_STR);
+        return getAllManifestPluginFilesInJar(ENDING_STR);
     }
 
     public static Set<Class<Trigger>> getTriggers(String packageName) {
@@ -61,34 +58,6 @@ public class PluginsProcessor {
         return PREFIXES.toArray(new String[0])[0];
     }
 
-
-    private static Set<File> getAllManifestPluginFilesInDir(
-            File directory, Set<File> manifestFile,
-            String ending) {
-        LOG.debug("searching manifest files inside directory {}", directory);
-        final String[] EXCLUDE_DIRS = {
-            "build-tools",
-            "src"
-        };
-
-        File[] filesInDirectory = directory.listFiles();
-        try {
-            Arrays.stream(filesInDirectory).forEach(fileInDirectory -> {
-                if (fileInDirectory.isDirectory() && Arrays.stream(EXCLUDE_DIRS).
-                        noneMatch(bar -> bar.equals(fileInDirectory.getName()))) {
-                    getAllManifestPluginFilesInDir(fileInDirectory, manifestFile, ending);
-                } else {
-                    if (fileInDirectory.getName().endsWith(ending)) {
-                        manifestFile.add(fileInDirectory);
-                        LOG.info("found manifest file: {}", fileInDirectory.getAbsoluteFile());
-                    }
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return manifestFile;
-    }
 
     public static Set<File> getAllManifestPluginFilesInJar(String ending) {
         Set<File> manifestFiles = new HashSet<>();
