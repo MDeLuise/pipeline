@@ -1,4 +1,4 @@
-# Pipeline [![emoji-log](https://cdn.rawgit.com/ahmadawais/stuff/ca97874/emoji-log/flat.svg)](https://github.com/ahmadawais/Emoji-Log/)
+# Pipeline [![emoji-log](https://cdn.rawgit.com/ahmadawais/stuff/ca97874/emoji-log/non-flat-round.svg)](https://github.com/ahmadawais/Emoji-Log/)
 
 <b>Pipeline</b> is an open source expandable project that helps to create a flow of automations defining `trigger`, `action`, and `processor`. 
 
