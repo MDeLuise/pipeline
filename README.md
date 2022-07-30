@@ -151,7 +151,7 @@ $ java -jar releaseModule/target/releaseModule-1.0-SNAPSHOT.jar -f {config-file-
 ```
 The config file used can be a YAML, or a JSON file.
 
-##### Launch script parameters
+##### Run parameters
 | Parameter | Description |
 | :---: | :---: |
 | -f or --from-file | load a config file from disk |
