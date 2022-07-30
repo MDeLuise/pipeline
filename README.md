@@ -252,7 +252,7 @@ $ git commit -m "🤖 TEST: Create tests for plugin foo triggers"
 $ git add README.md ...
 $ git commit -m "📖 DOC: Create documentation for new triggers"
 
-$ git push origin develop
+$ git push origin feature/foo-plugin
 ```
 
 ### Create a new plugin
