@@ -137,7 +137,8 @@ In order to compile the project:
 
 ```
 $ cd {directory-name}
-$ mvn clean install
+$ mvn clean
+$ mvn package
 ```
 
 
@@ -145,7 +146,7 @@ $ mvn clean install
 
 In order to run the project:
 ```
-$ build-tools/bash/launcher.sh -f {config-file-path}
+$ java -jar releaseModule/target/releaseModule-1.0-SNAPSHOT.jar -f {config-file-path}
 ```
 The config file used can be a YAML, or a JSON file.
 
@@ -277,6 +278,8 @@ $ mvn archetype:generate \
 Now the new plugin is created with some example of `triggers`, `actions`, `filters` and `transformers` inside it.
 Take a look at the existing classes and read the comments inside them.
 
+The last step consists in adding the new plugin as dependency in the `pom.xml` of the `releaseModule`.
+
 Remember to:
 * change the name of the classes according to your plugin name,
 * change the name of the generated _foo-plugin-manifest.property_ file with _{name}-plugin-manifest.property_.
@@ -406,10 +409,10 @@ To create any `trigger`, `action`, `filter`, and `transformer` in the _Foo_ plug
 
 #### Documentation
 Every plugin must have a `README.md` file containing a standard documentation about entities created in the plugin.
-To generate the standard documentation please use the provided tool as follows:
+To generate the standard documentation, first [compile the project](#Installation), and then please use the provided tool as follows:
 ```
-$ build-tools/bash/generate-documentation.sh {created-plugin-manifest-file-path}
-# for example: build-tools/bash/generate-documentation.sh pluginBase/src/main/resources/base-plugin-manifest.property
+$ java -jar releaseModule/target/releaseModule-1.0-SNAPSHOT.jar -d {created-plugin-manifest-file-path}
+# for example: java -jar releaseModule/target/releaseModule-1.0-SNAPSHOT.jar -d pluginBase/src/main/resources/base-plugin-manifest.property
 ```
 The provided tool creates the documentation in the `README.md` file under the plugin module root.
 
