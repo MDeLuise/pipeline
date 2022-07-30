@@ -67,12 +67,12 @@ public class Application implements Callable<Void> {
                 LoggerFactory.getLogger("org.reflections");
         reflectionsLog.setLevel(ch.qos.logback.classic.Level.OFF);
 
-        final Set<File> PLUGIN_MANIFEST_FILES =
+        Set<File> pluginManifestFiles =
                 PluginsProcessor.getAllManifestPluginFilesInDir(false);
-        PluginsValidator.validatePlugins(PLUGIN_MANIFEST_FILES);
+        PluginsValidator.validatePlugins(pluginManifestFiles);
 
         ApplicationFactoriesBuilder applicationFactoriesBuilder = new ApplicationFactoriesBuilder();
-        applicationFactoriesBuilder.addPackage(PLUGIN_MANIFEST_FILES);
+        applicationFactoriesBuilder.addPackage(pluginManifestFiles);
         ApplicationFactories applicationFactories =
                 applicationFactoriesBuilder.getApplicationFactories();
 
