@@ -1,9 +1,9 @@
-package ${package}.modifier.transformer;
+package ${package}.processor.transformer;
 
 import md.dev.log.LoggerHandler;
 import md.dev.options.Options;
 import md.dev.trigger.output.TriggerOutput;
-import md.dev.modifier.transformer.Transformer;
+import md.dev.processor.transformer.Transformer;
 
 import org.mockito.ArgumentCaptor;
 import org.mockito.Mockito;

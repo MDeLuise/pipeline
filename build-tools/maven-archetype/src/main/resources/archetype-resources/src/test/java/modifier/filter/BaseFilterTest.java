@@ -1,9 +1,9 @@
-package ${package}.modifier.filter;
+package ${package}.processor.filter;
 
 import md.dev.log.LoggerHandler;
 import md.dev.options.Options;
 import md.dev.trigger.output.TriggerOutput;
-import md.dev.modifier.filter.Filter;
+import md.dev.processor.filter.Filter;
 import org.mockito.Mockito;
 
 import java.util.ArrayList;

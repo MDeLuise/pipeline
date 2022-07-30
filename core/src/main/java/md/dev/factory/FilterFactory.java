@@ -1,7 +1,7 @@
 package md.dev.factory;
 
 import lombok.SneakyThrows;
-import md.dev.modifier.filter.Filter;
+import md.dev.processor.filter.Filter;
 
 import java.lang.reflect.Constructor;
 import java.util.List;

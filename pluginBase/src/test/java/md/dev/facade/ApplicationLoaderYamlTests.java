@@ -1,7 +1,7 @@
 package md.dev.facade;
 
-import md.dev.modifier.filter.operator.FilterOperator;
-import md.dev.modifier.transformer.Transformer;
+import md.dev.processor.filter.operator.FilterOperator;
+import md.dev.processor.transformer.Transformer;
 import md.dev.pipeline.TriggerOutputProcessor;
 import md.dev.pipeline.exception.IncompatibleTypeException;
 import org.junit.Before;

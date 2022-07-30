@@ -1,6 +1,6 @@
-package ${package}.modifier.transformer;
+package ${package}.processor.transformer;
 
-import md.dev.modifier.transformer.AbstractTransformer;
+import md.dev.processor.transformer.AbstractTransformer;
 import md.dev.options.Options;
 import md.dev.options.description.OptionDescription;
 import md.dev.plugin.annotation.Transformer;

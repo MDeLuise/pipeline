@@ -1,9 +1,9 @@
-package ${package}.modifier.transformer;
+package ${package}.processor.transformer;
 
 import md.dev.options.exception.OptionMismatchTypeException;
 import md.dev.pipeline.TriggerOutputProcessor;
 import md.dev.trigger.output.TriggerOutput;
-import md.dev.modifier.transformer.Transformer;
+import md.dev.processor.transformer.Transformer;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

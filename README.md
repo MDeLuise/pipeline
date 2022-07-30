@@ -294,7 +294,7 @@ pluginFoo/
 │  │  ├─ java/
 │  │  │  ├─ plugin.foo/
 │  │  │  │  ├─ action/ ①
-│  │  │  │  ├─ modifier/
+│  │  │  │  ├─ processor/
 │  │  │  │  │  ├─ filter/ ②
 │  │  │  │  │  ├─ transformer/ ③
 │  │  │  │  ├─ trigger/ ④
@@ -306,7 +306,7 @@ pluginFoo/
 │  ├─ test/ ⑨
 │  │  ├─ java/
 │  │  │  ├─ action/
-│  │  │  ├─ modifier/
+│  │  │  ├─ processor/
 │  │  │  │  ├─ filter/
 │  │  │  │  ├─ transformer/
 │  │  │  ├─ trigger/

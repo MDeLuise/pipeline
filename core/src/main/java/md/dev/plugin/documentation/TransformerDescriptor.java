@@ -1,7 +1,7 @@
 package md.dev.plugin.documentation;
 
 
-import md.dev.modifier.transformer.Transformer;
+import md.dev.processor.transformer.Transformer;
 import md.dev.plugin.documentation.table.DescriptionRow;
 import md.dev.plugin.documentation.table.DescriptionTable;
 import md.dev.plugin.documentation.table.SimpleCell;

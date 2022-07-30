@@ -1,6 +1,6 @@
-package ${package}.modifier.filter;
+package ${package}.processor.filter;
 
-import md.dev.modifier.filter.AbstractFilter;
+import md.dev.processor.filter.AbstractFilter;
 import md.dev.options.Options;
 import md.dev.options.description.OptionDescription;
 import md.dev.plugin.annotation.Filter;

@@ -1,11 +1,11 @@
 package md.dev.factory;
 
 import md.dev.factory.exception.NamedElementNotFoundException;
-import md.dev.modifier.filter.operator.AndFilterOperator;
-import md.dev.modifier.filter.operator.FilterOperator;
-import md.dev.modifier.filter.operator.LeafFilterOperator;
-import md.dev.modifier.filter.operator.NotFilterOperator;
-import md.dev.modifier.filter.operator.OrFilterOperator;
+import md.dev.processor.filter.operator.AndFilterOperator;
+import md.dev.processor.filter.operator.FilterOperator;
+import md.dev.processor.filter.operator.LeafFilterOperator;
+import md.dev.processor.filter.operator.NotFilterOperator;
+import md.dev.processor.filter.operator.OrFilterOperator;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
