@@ -187,7 +187,6 @@
                 </executions>
             </plugin>
         </plugins>
-
     </build>
 
     <reporting>
@@ -199,11 +198,8 @@
                 <configuration>
                     <configLocation>resources/checkstyle.xml</configLocation>
                 </configuration>
-
             </plugin>
-
         </plugins>
-
     </reporting>
 
 </project>

@@ -1,0 +1,88 @@
+name: Maven CI
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Maven Action
+        uses: s4u/setup-maven-action@v1.2.1
+        with:
+          java-version: 17
+
+      - name: Install local dependency jars
+        run: |
+          mvn install:install-file \
+          -Dfile=lib/httpRequestWrapper-1.0.jar \
+          -DgroupId=md.dev -DartifactId=httpRequestWrapper \
+          -Dversion=1.0 \
+          -Dpackaging=jar
+
+      - name: Build
+        run: mvn verify -DskipTests -Dcheckstyle.skip
+
+  checkstyle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Maven Action
+        uses: s4u/setup-maven-action@v1.2.1
+        with:
+          java-version: 17
+
+      - name: Install local dependency jars
+        run: |
+          mvn install:install-file \
+          -Dfile=lib/httpRequestWrapper-1.0.jar \
+          -DgroupId=md.dev -DartifactId=httpRequestWrapper \
+          -Dversion=1.0 \
+          -Dpackaging=jar
+
+      - name: Verify the checkstyle
+        run: mvn verify -DskipTests
+
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Maven Action
+        uses: s4u/setup-maven-action@v1.2.1
+        with:
+          java-version: 17
+
+      - name: Install local dependency jars
+        run: |
+          mvn install:install-file \
+          -Dfile=lib/httpRequestWrapper-1.0.jar \
+          -DgroupId=md.dev -DartifactId=httpRequestWrapper \
+          -Dversion=1.0 \
+          -Dpackaging=jar
+
+      - name: Run the unit tests
+        run: mvn verify -Dcheckstyle.skip -DskipIntegrationTests
+
+  integration-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Maven Action
+        uses: s4u/setup-maven-action@v1.2.1
+        with:
+          java-version: 17
+
+      - name: Install local dependency jars
+        run: |
+          mvn install:install-file \
+          -Dfile=lib/httpRequestWrapper-1.0.jar \
+          -DgroupId=md.dev -DartifactId=httpRequestWrapper \
+          -Dversion=1.0 \
+          -Dpackaging=jar
+
+      - name: Run the integration tests
+        run: mvn verify -Dcheckstyle.skip -DskipUnitTests
+
+  commit-messages:
+      runs-on: ubuntu-latest
+      #if: ${{ github.event_name == 'pull_request' }}
+      steps:
+        - uses: actions/checkout@v3
+        - name: Check emoji log for pull request
+          run: ./build-tools/validate-commits.sh MdeLuise pipeline ${{ github.event.pull_request.number }}
