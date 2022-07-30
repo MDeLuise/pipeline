@@ -115,6 +115,8 @@ These entities can be combiner together in order to create a `pipeline`.
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine not only for use it but also for development and testing purposes.
 
+If you don't have `maven` installed on your local machine, you can use the provided `mvnw` wrapper (for unix systems) or `mvnw.cmd` wrapper (for window system).
+
 ### Releases
 If you want to run a release version of the software, you just needs to have JRE 8 or above installed.
 Then:
@@ -129,7 +131,6 @@ $ java -jar pipeline-{version}.jar {arguments}
 The things you need before installing the software:
 
 * JDK 17 or above
-* Maven
 
 #### Installation
 
