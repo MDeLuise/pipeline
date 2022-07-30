@@ -5,10 +5,10 @@ import md.dev.factory.ApplicationFactories;
 import md.dev.factory.ApplicationFactoriesBuilder;
 import md.dev.factory.FilterOperatorFactory;
 import md.dev.log.LoggerHandler;
-import md.dev.modifier.filter.Filter;
-import md.dev.modifier.filter.operator.FilterOperator;
-import md.dev.modifier.filter.operator.LeafFilterOperator;
-import md.dev.modifier.transformer.Transformer;
+import md.dev.processor.filter.Filter;
+import md.dev.processor.filter.operator.FilterOperator;
+import md.dev.processor.filter.operator.LeafFilterOperator;
+import md.dev.processor.transformer.Transformer;
 import md.dev.pipeline.TriggerOutputProcessor;
 import org.junit.Assert;
 

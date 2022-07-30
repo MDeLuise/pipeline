@@ -3,8 +3,8 @@ package md.dev.plugin;
 
 import md.dev.Application;
 import md.dev.action.Action;
-import md.dev.modifier.filter.Filter;
-import md.dev.modifier.transformer.Transformer;
+import md.dev.processor.filter.Filter;
+import md.dev.processor.transformer.Transformer;
 import md.dev.plugin.annotation.Plugin;
 import md.dev.trigger.Trigger;
 import org.reflections.Reflections;

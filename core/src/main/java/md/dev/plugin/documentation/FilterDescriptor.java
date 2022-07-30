@@ -1,6 +1,6 @@
 package md.dev.plugin.documentation;
 
-import md.dev.modifier.filter.Filter;
+import md.dev.processor.filter.Filter;
 import md.dev.plugin.documentation.table.DescriptionRow;
 import md.dev.plugin.documentation.table.DescriptionTable;
 import md.dev.plugin.documentation.table.SimpleCell;

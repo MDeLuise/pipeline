@@ -1,7 +1,7 @@
 package md.dev.factory;
 
 import lombok.SneakyThrows;
-import md.dev.modifier.transformer.Transformer;
+import md.dev.processor.transformer.Transformer;
 
 import java.lang.reflect.Constructor;
 import java.util.List;

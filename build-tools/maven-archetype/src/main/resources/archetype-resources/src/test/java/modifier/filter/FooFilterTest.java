@@ -1,4 +1,4 @@
-package ${package}.modifier.filter;
+package ${package}.processor.filter;
 
 import md.dev.options.exception.OptionMismatchTypeException;
 import org.junit.Assert;
