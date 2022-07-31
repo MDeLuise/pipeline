@@ -36,6 +36,7 @@ public class YouTubeVideoUploadedWebApi extends AbstractWebApi {
         }
     }
 
+
     @Override
     public void configure(WebApiConfiguration configuration) {
         if (configuration.contains("channelId")) {

@@ -26,19 +26,21 @@ public class YoutubeVideo implements Serializable {
         return videoId.equals(((YoutubeVideo) o).videoId);
     }
 
+
     @Override
     public int hashCode() {
         return Objects.hash(videoId);
     }
 
+
     @Override
     public String toString() {
         return "{" +
-                "url:'" + url + '\'' +
-                ", publishedDate: '" + publishedDate + '\'' +
-                ", title:'" + title + '\'' +
-                ", videoId:'" + videoId + '\'' +
-                ", channelId:'" + channelId + '\'' +
-                '}';
+            "url:'" + url + '\'' +
+            ", publishedDate: '" + publishedDate + '\'' +
+            ", title:'" + title + '\'' +
+            ", videoId:'" + videoId + '\'' +
+            ", channelId:'" + channelId + '\'' +
+            '}';
     }
 }
