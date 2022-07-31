@@ -10,6 +10,7 @@ abstract class BaseFilterOperatorTest {
     TriggerOutput triggerOutput;
     FilterOperator filterOperator;
 
+
     public void init() {
         filter = Mockito.mock(Filter.class);
         triggerOutput = Mockito.mock(TriggerOutput.class);

@@ -21,6 +21,7 @@ public class LeafFilterOperatorTest extends BaseFilterOperatorTest {
         filterOperator.insertFilter(filter);
     }
 
+
     @Test
     public void shouldFilterTrue() {
         Mockito.when(filter.filter(triggerOutput)).thenAnswer(foo -> true);
@@ -28,12 +29,14 @@ public class LeafFilterOperatorTest extends BaseFilterOperatorTest {
         Assert.assertTrue(filterOperator.filterAll(triggerOutput));
     }
 
+
     @Test
     public void shouldFilterFalse() {
         Mockito.when(filter.filter(triggerOutput)).thenAnswer(foo -> false);
         Mockito.when(filter.getInputType()).thenAnswer(foo -> Object.class);
         Assert.assertFalse(filterOperator.filterAll(triggerOutput));
     }
+
 
     @Test
     public void shouldProcessNextInChain() {
@@ -46,6 +49,7 @@ public class LeafFilterOperatorTest extends BaseFilterOperatorTest {
         filterOperator.process(triggerOutput);
         Mockito.verify(nextElement, Mockito.times(1)).process(triggerOutput);
     }
+
 
     @Test
     public void shouldNotProcessNextInChain() {

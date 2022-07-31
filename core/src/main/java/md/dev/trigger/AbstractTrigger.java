@@ -18,9 +18,9 @@ import java.util.Locale;
 
 
 abstract class AbstractTrigger<T> extends AbstractOptionsLoadableEntity implements Trigger<T> {
-    protected final Logger LOG = LoggerFactory.getLogger(AbstractTrigger.class);
     protected TriggerOutput<T> triggerOutput;
     protected int delay;
+    protected final Logger log = LoggerFactory.getLogger(AbstractTrigger.class);
     private final List<Pipeline> pipelines = new ArrayList<>();
     private String stateId;
 
@@ -38,10 +38,10 @@ abstract class AbstractTrigger<T> extends AbstractOptionsLoadableEntity implemen
 
         if (options.has("delay")) {
             delay = (int) options.get("delay");
-            LOG.info("loaded delay value from passed option");
+            log.info("loaded delay value from passed option");
         } else {
             delay = 0;
-            LOG.info("use default delay value");
+            log.info("use default delay value");
         }
         if (options.has("stateId")) {
             stateId = createEntityId(options.getString("stateId"));
@@ -105,9 +105,9 @@ abstract class AbstractTrigger<T> extends AbstractOptionsLoadableEntity implemen
 
 
     protected void triggerPipelines() {
-        LOG.debug("called triggerPipelines");
+        log.debug("called triggerPipelines");
         pipelines.forEach(pipeline -> pipeline.process(triggerOutput));
-        LOG.debug("triggerPipelines terminated");
+        log.debug("triggerPipelines terminated");
     }
 
     protected String getProperty(String key) {

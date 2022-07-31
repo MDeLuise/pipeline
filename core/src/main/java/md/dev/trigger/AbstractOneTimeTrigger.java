@@ -15,12 +15,15 @@ public abstract class AbstractOneTimeTrigger<T> extends AbstractTrigger<T> {
         super(triggerOutputToUse);
     }
 
+
     @Override
     protected void initializePeriodicityOptions() {
         initializeClassOptions();
     }
 
+
     protected abstract void initializeClassOptions();
+
 
     @Override
     public void startListening() {
@@ -37,15 +40,18 @@ public abstract class AbstractOneTimeTrigger<T> extends AbstractTrigger<T> {
         }).start();
     }
 
+
     @Override
     protected Collection<? extends OptionDescription> acceptedPeriodicityOptions() {
         return acceptedClassOptions();
     }
 
+
     @Override
     protected void loadPeriodicityOptions(Options options) {
         loadInstanceOptions(options);
     }
+
 
     protected abstract void loadInstanceOptions(Options options);
 

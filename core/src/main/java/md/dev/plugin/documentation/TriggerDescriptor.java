@@ -15,49 +15,53 @@ class TriggerDescriptor extends AbstractEntityDescriptor<Trigger> {
     @SuppressWarnings("chekstyle:MagicNumber")
     @Override
     public String createDescription() {
-        descriptionTable = new DescriptionTable(new String[] {
+        descriptionTable = new DescriptionTable(new String[]{
             "Identifier", "Periodic", "Type sent", "Options", "Description"
         });
 
-        final List<Trigger> TRIGGER_LIST = new ArrayList<>(ENTITIES);
-        TRIGGER_LIST.sort(Comparator.comparing(tr -> getId((Class<Trigger>) tr.getClass())));
-        for (Trigger trigger: TRIGGER_LIST) {
-            final Class<Trigger> TRIGGER_CLASS = (Class<Trigger>) trigger.getClass();
+        List<Trigger> triggerList = new ArrayList<>(entities);
+        triggerList.sort(Comparator.comparing(tr -> getId((Class<Trigger>) tr.getClass())));
+        for (Trigger trigger : triggerList) {
+            Class<Trigger> triggerClass = (Class<Trigger>) trigger.getClass();
 
             DescriptionRow descriptionRow = new DescriptionRow(5);
 
-            descriptionRow.addCell(new SimpleCell(getId(TRIGGER_CLASS)));
+            descriptionRow.addCell(new SimpleCell(getId(triggerClass)));
 
-            descriptionRow.addCell(new SimpleCell(String.valueOf(isPeriodic(TRIGGER_CLASS))));
+            descriptionRow.addCell(new SimpleCell(String.valueOf(isPeriodic(triggerClass))));
 
             descriptionRow.addCell(new SimpleCell(
-                    removeClassWordIfStartWithIt(getType(TRIGGER_CLASS)))
+                removeClassWordIfStartWithIt(getType(triggerClass)))
             );
 
             descriptionRow.addInnerTable(createDescriptionForOptions(trigger.acceptedOptions()));
 
-            descriptionRow.addCell(new SimpleCell(getDescription(TRIGGER_CLASS)));
+            descriptionRow.addCell(new SimpleCell(getDescription(triggerClass)));
 
             descriptionTable.addRow(descriptionRow);
         }
         return descriptionTable.toString();
     }
 
+
     private static boolean isPeriodic(Class<Trigger> trigger) {
         return AbstractPeriodicTrigger.class.isAssignableFrom(trigger);
     }
+
 
     private static String getId(Class<Trigger> trigger) {
         return trigger.getAnnotation(md.dev.plugin.annotation.Trigger.class).id();
     }
 
+
     private static String getDescription(Class<Trigger> trigger) {
         return trigger.getAnnotation(md.dev.plugin.annotation.Trigger.class).description();
     }
 
+
     private String getType(Class<Trigger> trigger) {
         return removeClassWordIfStartWithIt(trigger.getAnnotation(
-                md.dev.plugin.annotation.Trigger.class).outputType().toString()
+            md.dev.plugin.annotation.Trigger.class).outputType().toString()
         );
     }
 }

@@ -12,22 +12,22 @@ public class ActionFactory extends EntityFactory<Action> {
         super(prefix);
     }
 
+
     @SneakyThrows
     @Override
-    protected Action create(
-            FactoryConfiguration factoryConfiguration,
-            Constructor constructor,
-            List<Object> defaultParams) {
+    protected Action create(FactoryConfiguration factoryConfiguration,
+                            Constructor constructor,
+                            List<Object> defaultParams) {
 
         if (defaultParams.size() == 0) {
             return (Action) constructor.newInstance();
         }
 
-        final WebApi WEB_API_TO_USE =
-                factoryConfiguration.contains("webApi") ?
-                        (WebApi) factoryConfiguration.get("webApi") :
-                        (WebApi) defaultParams.get(0);
+        WebApi webApiToUse =
+            factoryConfiguration.contains("webApi") ?
+                (WebApi) factoryConfiguration.get("webApi") :
+                (WebApi) defaultParams.get(0);
 
-        return (Action) constructor.newInstance(WEB_API_TO_USE);
+        return (Action) constructor.newInstance(webApiToUse);
     }
 }

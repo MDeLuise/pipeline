@@ -21,6 +21,7 @@ public class PipelineTest {
     TriggerOutputProcessor triggerOutputProcessor2;
     TriggerOutputProcessor triggerOutputProcessor3;
 
+
     @Before
     public void init() {
         pipeline = new PipelineImpl();
@@ -38,25 +39,28 @@ public class PipelineTest {
         Mockito.when(triggerOutputProcessor3.getOutputType()).thenAnswer(foo -> Object.class);
     }
 
+
     @Test
     public void shouldProcessFirstElement() {
         pipeline.addElement(triggerOutputProcessor1);
         pipeline.process(null);
         Mockito.verify(
-                triggerOutputProcessor1,
-                Mockito.times(1)
+            triggerOutputProcessor1,
+            Mockito.times(1)
         ).process(null);
     }
+
 
     @Test
     public void shouldLinkSecondElement() {
         pipeline.addElement(triggerOutputProcessor1);
         pipeline.addElement(triggerOutputProcessor2);
         Mockito.verify(
-                triggerOutputProcessor1,
-                Mockito.times(1)
+            triggerOutputProcessor1,
+            Mockito.times(1)
         ).setNext(triggerOutputProcessor2);
     }
+
 
     @Test
     public void shouldRemoveFirstElement() {
@@ -67,14 +71,15 @@ public class PipelineTest {
         pipeline.removeElement(triggerOutputProcessor1);
 
         Mockito.verify(
-                triggerOutputProcessor1,
-                Mockito.times(1)
+            triggerOutputProcessor1,
+            Mockito.times(1)
         ).setNext(null);
 
         pipeline.process(triggerOutput);
         Mockito.verify(triggerOutputProcessor2, Mockito.times(1))
-                .process(triggerOutput);
+            .process(triggerOutput);
     }
+
 
     @Test
     public void shouldRemoveSecondElement() {
@@ -85,14 +90,15 @@ public class PipelineTest {
         pipeline.removeElement(triggerOutputProcessor2);
 
         Mockito.verify(
-                triggerOutputProcessor2,
-                Mockito.times(1)
+            triggerOutputProcessor2,
+            Mockito.times(1)
         ).setNext(null);
 
         pipeline.process(triggerOutput);
         Mockito.verify(triggerOutputProcessor1, Mockito.times(1))
-                .process(triggerOutput);
+            .process(triggerOutput);
     }
+
 
     @Test
     public void shouldReturnCorrectIterator() {
@@ -106,7 +112,7 @@ public class PipelineTest {
 
         Iterator<TriggerOutputProcessor<?, ?>> iterator = pipeline.iterator();
         List<TriggerOutputProcessor> wantedElements = new ArrayList<>(Arrays.asList(
-                triggerOutputProcessor1, triggerOutputProcessor2, triggerOutputProcessor3
+            triggerOutputProcessor1, triggerOutputProcessor2, triggerOutputProcessor3
         ));
         List<TriggerOutputProcessor<?, ?>> currentElements = new ArrayList<>();
         while (iterator.hasNext()) {
@@ -115,7 +121,6 @@ public class PipelineTest {
 
         Assert.assertEquals(wantedElements, currentElements);
     }
-
 
 
 }

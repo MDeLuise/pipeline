@@ -40,7 +40,7 @@ public class SendGmailWebApi extends AbstractWebApi {
                     false // true to debug enable
             );
         } catch (Exception e) {
-            LOG.error("error while creating smtp object", e);
+            log.error("error while creating smtp object", e);
             throw new PipelineGenericException(e.getMessage());
         }
         try {
@@ -51,7 +51,7 @@ public class SendGmailWebApi extends AbstractWebApi {
             message.setContent(text, "text/html");
             smtp.sendMessage(message, new Address[]{new InternetAddress(to)});
         } catch (UnsupportedEncodingException | MessagingException e) {
-            LOG.error("error while creating message to send", e);
+            log.error("error while creating message to send", e);
             throw new PipelineGenericException(e.getMessage());
         }
 

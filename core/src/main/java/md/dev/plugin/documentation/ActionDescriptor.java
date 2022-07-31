@@ -17,22 +17,22 @@ class ActionDescriptor extends AbstractEntityDescriptor<Action> {
         descriptionTable = new DescriptionTable(new String[]{
             "Identifier", "Type used", "Options", "Description"
         });
-        final List<Action> ACTION_LIST = new ArrayList<>(ENTITIES);
-        ACTION_LIST.sort(Comparator.comparing(ac -> getId((Class<Action>) ac.getClass())));
-        for (Action action: ACTION_LIST) {
-            final Class<Action> ACTION_CLASS = (Class<Action>) action.getClass();
+        List<Action> actionList = new ArrayList<>(entities);
+        actionList.sort(Comparator.comparing(ac -> getId((Class<Action>) ac.getClass())));
+        for (Action action : actionList) {
+            Class<Action> actionClass = (Class<Action>) action.getClass();
 
             DescriptionRow descriptionRow = new DescriptionRow(4);
 
-            descriptionRow.addCell(new SimpleCell(String.valueOf(getId(ACTION_CLASS))));
+            descriptionRow.addCell(new SimpleCell(String.valueOf(getId(actionClass))));
 
             descriptionRow.addCell(new SimpleCell(
-                    removeClassWordIfStartWithIt(getType(ACTION_CLASS)))
+                removeClassWordIfStartWithIt(getType(actionClass)))
             );
 
             descriptionRow.addInnerTable(createDescriptionForOptions(action.acceptedOptions()));
 
-            descriptionRow.addCell(new SimpleCell(getDescription(ACTION_CLASS)));
+            descriptionRow.addCell(new SimpleCell(getDescription(actionClass)));
 
             descriptionTable.addRow(descriptionRow);
         }
@@ -44,13 +44,15 @@ class ActionDescriptor extends AbstractEntityDescriptor<Action> {
         return action.getAnnotation(md.dev.plugin.annotation.Action.class).id();
     }
 
+
     private static String getDescription(Class<Action> action) {
         return action.getAnnotation(md.dev.plugin.annotation.Action.class).description();
     }
 
+
     private String getType(Class<Action> action) {
         return removeClassWordIfStartWithIt(action.getAnnotation(
-                md.dev.plugin.annotation.Action.class).inputType().toString()
+            md.dev.plugin.annotation.Action.class).inputType().toString()
         );
     }
 }

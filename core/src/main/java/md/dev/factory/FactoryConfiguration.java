@@ -5,21 +5,25 @@ import java.util.Map;
 import java.util.Set;
 
 public class FactoryConfiguration {
-    private final Map<String, Object> MAP = new HashMap<>();
+    private final Map<String, Object> map = new HashMap<>();
+
 
     public boolean contains(Object key) {
-        return MAP.containsKey(key);
+        return map.containsKey(key);
     }
+
 
     public Object get(Object key) {
-        return MAP.get(key);
+        return map.get(key);
     }
+
 
     public Object put(String key, Object value) {
-        return MAP.put(key, value);
+        return map.put(key, value);
     }
 
+
     public Set<String> keySet() {
-        return MAP.keySet();
+        return map.keySet();
     }
 }

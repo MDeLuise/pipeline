@@ -19,6 +19,7 @@ public class OrFilterOperatorTest extends BaseCompositeFilterOperatorTest {
         filterOperator = filterOperatorFactory.build(factoryConfiguration);
     }
 
+
     @Test
     public void shouldFilterTrueTwoTrue() {
         Mockito.when(filterOperator1.filterAll(triggerOutput)).thenAnswer(foo -> true);
@@ -29,6 +30,7 @@ public class OrFilterOperatorTest extends BaseCompositeFilterOperatorTest {
         filterOperator.insertOperator(filterOperator2);
         Assert.assertTrue(filterOperator.filterAll(triggerOutput));
     }
+
 
     @Test
     public void shouldFilterTrueThreeTrue() {
@@ -44,6 +46,7 @@ public class OrFilterOperatorTest extends BaseCompositeFilterOperatorTest {
         Assert.assertTrue(filterOperator.filterAll(triggerOutput));
     }
 
+
     @Test
     public void shouldFilterTrueTwoOneFalse() {
         Mockito.when(filterOperator1.filterAll(triggerOutput)).thenAnswer(foo -> true);
@@ -54,6 +57,7 @@ public class OrFilterOperatorTest extends BaseCompositeFilterOperatorTest {
         filterOperator.insertOperator(filterOperator2);
         Assert.assertTrue(filterOperator.filterAll(triggerOutput));
     }
+
 
     @Test
     public void shouldFilterFalseThreeFalse() {
@@ -68,6 +72,7 @@ public class OrFilterOperatorTest extends BaseCompositeFilterOperatorTest {
         filterOperator.insertOperator(filterOperator3);
         Assert.assertFalse(filterOperator.filterAll(triggerOutput));
     }
+
 
     @Test
     public void shouldProcessNextInChain() {
@@ -84,6 +89,7 @@ public class OrFilterOperatorTest extends BaseCompositeFilterOperatorTest {
         filterOperator.process(triggerOutput);
         Mockito.verify(nextElement, Mockito.times(1)).process(triggerOutput);
     }
+
 
     @Test
     public void shouldNotProcessNextInChain() {

@@ -23,7 +23,7 @@ public class YouTubeVideoUploadedWebApi extends AbstractWebApi {
         try {
             videos = YouTubeVideoFetcher.getLastVideos(channelId);
         } catch (IOException | FeedException e) {
-            LOG.error("error while fetching last videos", e);
+            log.error("error while fetching last videos", e);
             throw new PipelineGenericException(e.getMessage());
         }
         ObjectMapper objectMapper = new ObjectMapper();
@@ -31,7 +31,7 @@ public class YouTubeVideoUploadedWebApi extends AbstractWebApi {
         try {
             return new WebApiResponse(200, objectMapper.writeValueAsString(videos));
         } catch (JsonProcessingException e) {
-            LOG.error("error while writing feed to string", e);
+            log.error("error while writing feed to string", e);
             throw new PipelineGenericException(e.getMessage());
         }
     }

@@ -33,10 +33,10 @@ public class PeriodicTrueTrigger extends AbstractPeriodicTrigger<Boolean> {
 
     @Override
     protected void listen() {
-        LOG.debug("called listen");
+        log.debug("called listen");
         triggerOutput.setValue(Boolean.TRUE);
         triggerPipelines();
-        LOG.debug("pipeline triggered");
+        log.debug("pipeline triggered");
     }
 
     @Override

@@ -29,33 +29,33 @@ public class PluginsValidator {
 
 
     private static void checkPrefixesUniqueness(Set<String> packagesNames) {
-        final Set<PackageNameWithPrefix> PREFIXES = new HashSet<>();
+        Set<PackageNameWithPrefix> prefixes = new HashSet<>();
 
-        final PluginsProcessor PLUGIN_PROCESSOR = new PluginsProcessor();
+        PluginsProcessor pluginsProcessor = new PluginsProcessor();
         for (String packageName : packagesNames) {
-            Set<String> packagePrefixes = PLUGIN_PROCESSOR.getPrefixes(packageName);
+            Set<String> packagePrefixes = pluginsProcessor.getPrefixes(packageName);
             if (packagePrefixes.size() != 1) {
                 throw new WrongPluginClassesNumberException(packageName, packagePrefixes.size());
             }
 
             String newPrefix = (new ArrayList<>(packagePrefixes)).get(0);
-            List<PackageNameWithPrefix> alreadyIncurredPrefix = PREFIXES.stream().
-                    filter(packageNameWithPrefix ->
-                            packageNameWithPrefix.prefix.equals(newPrefix)).
-                    collect(Collectors.toList());
+            List<PackageNameWithPrefix> alreadyIncurredPrefix = prefixes.stream().
+                filter(packageNameWithPrefix ->
+                    packageNameWithPrefix.prefix.equals(newPrefix))
+                .collect(Collectors.toList());
 
             if (alreadyIncurredPrefix.size() != 0) {
                 throw new PrefixNotUniqueException(
-                        newPrefix,
-                        packageName,
-                        alreadyIncurredPrefix.get(0).packageName
+                    newPrefix,
+                    packageName,
+                    alreadyIncurredPrefix.get(0).packageName
                 );
             }
 
             PackageNameWithPrefix packageNameWithPrefix = new PackageNameWithPrefix();
             packageNameWithPrefix.prefix = newPrefix;
             packageNameWithPrefix.packageName = packageName;
-            PREFIXES.add(packageNameWithPrefix);
+            prefixes.add(packageNameWithPrefix);
         }
     }
 }

@@ -14,27 +14,27 @@ public class TriggerFactory extends EntityFactory<Trigger> {
         super(prefix);
     }
 
+
     @SneakyThrows
     @Override
-    protected Trigger create(
-            FactoryConfiguration factoryConfiguration,
-            Constructor constructor,
-            List<Object> defaultParams) {
+    protected Trigger create(FactoryConfiguration factoryConfiguration,
+                             Constructor constructor,
+                             List<Object> defaultParams) {
 
-        final TriggerOutput TRIGGER_OUTPUT_TO_USE =
-                factoryConfiguration.contains("triggerOutput") ?
-                        (TriggerOutput) factoryConfiguration.get("triggerOutput") :
-                        new TriggerOutputImpl();
+        TriggerOutput triggerOutputToUse =
+            factoryConfiguration.contains("triggerOutput") ?
+                (TriggerOutput) factoryConfiguration.get("triggerOutput") :
+                new TriggerOutputImpl();
 
         if (defaultParams.size() == 1) {
-            return (Trigger) constructor.newInstance(TRIGGER_OUTPUT_TO_USE);
+            return (Trigger) constructor.newInstance(triggerOutputToUse);
         }
 
-        final WebApi WEB_API_TO_USE =
-                factoryConfiguration.contains("webApi") ?
-                        (WebApi) factoryConfiguration.get("webApi") :
-                        (WebApi) defaultParams.get(1);
+        WebApi webApiToUse =
+            factoryConfiguration.contains("webApi") ?
+                (WebApi) factoryConfiguration.get("webApi") :
+                (WebApi) defaultParams.get(1);
 
-        return (Trigger) constructor.newInstance(TRIGGER_OUTPUT_TO_USE, WEB_API_TO_USE);
+        return (Trigger) constructor.newInstance(triggerOutputToUse, webApiToUse);
     }
 }

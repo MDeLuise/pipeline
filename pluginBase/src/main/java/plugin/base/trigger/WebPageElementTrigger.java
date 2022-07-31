@@ -89,7 +89,7 @@ public class WebPageElementTrigger extends AbstractPeriodicWebTrigger<String> {
 
     @Override
     protected void listen() {
-        WebApiResponse webApiResponse = WEB_API.perform();
+        WebApiResponse webApiResponse = webApi.perform();
 
         if (webApiResponse != null && webApiResponse.isOk()) {
             String newElement = webApiResponse.getResponse();
@@ -108,6 +108,6 @@ public class WebPageElementTrigger extends AbstractPeriodicWebTrigger<String> {
         WebApiConfiguration webApiConfiguration = new WebApiConfiguration();
         webApiConfiguration.insert("url", options.get("url"));
         webApiConfiguration.insert("selector", options.get("selector"));
-        WEB_API.configure(webApiConfiguration);
+        webApi.configure(webApiConfiguration);
     }
 }

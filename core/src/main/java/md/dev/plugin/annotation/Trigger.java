@@ -9,7 +9,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface Trigger {
     String id();
+
     Class webApi() default Class.class;
+
     Class outputType();
+
     String description();
 }

@@ -104,13 +104,13 @@ public class TelegramBotReceiverTrigger extends AbstractPeriodicWebTrigger<Teleg
         if (lastUpdateId != 0) {
             webApiConfiguration.insert("lastUpdateId", lastUpdateId);
         }
-        WEB_API.configure(webApiConfiguration);
+        webApi.configure(webApiConfiguration);
 
         WebApiResponse webApiResponse;
         try {
-            webApiResponse = WEB_API.perform();
+            webApiResponse = webApi.perform();
         } catch (Exception e) {
-            LOG.error("error while performing webapi action", e);
+            log.error("error while performing webapi action", e);
             throw new PipelineGenericException(e.getMessage());
         }
         JSONObject jsonResponse = new JSONObject(webApiResponse.getResponse());
@@ -120,7 +120,7 @@ public class TelegramBotReceiverTrigger extends AbstractPeriodicWebTrigger<Teleg
             try {
                 telegramUpdate = mapper.readValue(jsonMessages.toString(), TelegramUpdate.class);
             } catch (JsonProcessingException e) {
-                LOG.error("error while writing update to string", e);
+                log.error("error while writing update to string", e);
                 throw new PipelineGenericException(e.getMessage());
             }
 

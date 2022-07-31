@@ -83,12 +83,12 @@ public class WebPageTrigger extends AbstractPeriodicWebTrigger<String> {
     protected void configureWebApi(Options options) {
         WebApiConfiguration webApiConfiguration = new WebApiConfiguration();
         webApiConfiguration.insert("url", options.get("url"));
-        WEB_API.configure(webApiConfiguration);
+        webApi.configure(webApiConfiguration);
     }
 
     @Override
     protected void listen() {
-        WebApiResponse webApiResponse = WEB_API.perform();
+        WebApiResponse webApiResponse = webApi.perform();
 
         if (webApiResponse != null && webApiResponse.isOk()) {
             String newPageHash = DigestUtils.md5Hex(webApiResponse.getResponse());

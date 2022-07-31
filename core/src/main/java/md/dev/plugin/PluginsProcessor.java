@@ -24,38 +24,44 @@ public class PluginsProcessor {
     private static final Logger LOG = LoggerFactory.getLogger(PluginsProcessor.class);
 
     public static Set<File> getAllManifestPluginFilesInDir() {
-        final String ENDING_STR = "plugin-manifest.property";
-        return getAllManifestPluginFilesInJar(ENDING_STR);
+        String endingStr = "plugin-manifest.property";
+        return getAllManifestPluginFilesInJar(endingStr);
     }
+
 
     public static Set<Class<Trigger>> getTriggers(String packageName) {
         return getEntities(md.dev.plugin.annotation.Trigger.class, packageName);
     }
 
+
     public static Set<Class<Action>> getActions(String packageName) {
         return getEntities(md.dev.plugin.annotation.Action.class, packageName);
     }
+
 
     public static Set<Class<Filter>> getFilters(String packageName) {
         return getEntities(md.dev.plugin.annotation.Filter.class, packageName);
     }
 
+
     public static Set<Class<Transformer>> getTransformers(String packageName) {
         return getEntities(md.dev.plugin.annotation.Transformer.class, packageName);
     }
 
+
     public static Set<String> getPrefixes(String packageName) {
-        final Set<Class> PLUGIN_CLASSES = getEntities(Plugin.class, packageName);
-        final Set<String> PREFIXES = new HashSet<>();
-        PLUGIN_CLASSES.forEach(aClass ->
-                PREFIXES.add(((Plugin) aClass.getAnnotation(Plugin.class)).prefix())
+        Set<Class> pluginClasses = getEntities(Plugin.class, packageName);
+        Set<String> prefixes = new HashSet<>();
+        pluginClasses.forEach(aClass ->
+            prefixes.add(((Plugin) aClass.getAnnotation(Plugin.class)).prefix())
         );
-        return PREFIXES;
+        return prefixes;
     }
 
+
     public static String getPrefix(String packageName) {
-        final Set<String> PREFIXES = getPrefixes(packageName);
-        return PREFIXES.toArray(new String[0])[0];
+        Set<String> prefixes = getPrefixes(packageName);
+        return prefixes.toArray(new String[0])[0];
     }
 
 

@@ -21,26 +21,29 @@ public abstract class AbstractPeriodicTrigger<T> extends AbstractTrigger<T> {
         super(triggerOutputToUse);
     }
 
+
     @Override
     public Collection<? extends OptionDescription> acceptedPeriodicityOptions() {
         List<OptionDescription> optionDescriptions = new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "period",
-                        "Perform action every given amount of seconds.",
-                        java.lang.Integer.class,
-                        "5",
-                        false
-                ),
-                new OptionDescription(
-                        "repeat",
-                        "Perform action given amount of time.",
-                        java.lang.Integer.class,
-                        "null",
-                        false
-                )));
+            new OptionDescription(
+                "period",
+                "Perform action every given amount of seconds.",
+                java.lang.Integer.class,
+                "5",
+                false
+            ),
+            new OptionDescription(
+                "repeat",
+                "Perform action given amount of time.",
+                java.lang.Integer.class,
+                "null",
+                false
+            )
+        ));
         optionDescriptions.addAll(acceptedClassOptions());
         return optionDescriptions;
     }
+
 
     @Override
     public void startListening() {
@@ -51,7 +54,7 @@ public abstract class AbstractPeriodicTrigger<T> extends AbstractTrigger<T> {
         }
         new Thread(() -> {
             try {
-                LOG.debug("sleep for {} seconds (delay)", delay);
+                log.debug("sleep for {} seconds (delay)", delay);
                 TimeUnit.SECONDS.sleep(delay);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -60,19 +63,19 @@ public abstract class AbstractPeriodicTrigger<T> extends AbstractTrigger<T> {
             while (repeatTimes.orElse(1) > 0) {
                 if (!firstIteration) {
                     try {
-                        LOG.debug("sleep for {} seconds (period)", period);
+                        log.debug("sleep for {} seconds (period)", period);
                         TimeUnit.SECONDS.sleep(period);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 }
                 firstIteration = false;
-                LOG.debug("call trigger's listen");
+                log.debug("call trigger's listen");
                 listen();
-                LOG.debug("call to trigger's listen terminated");
+                log.debug("call to trigger's listen terminated");
                 if (repeatTimes.isPresent()) {
                     repeatTimes = repeatTimes.map(count -> count - 1);
-                    LOG.info("to repeat more " + repeatTimes.get() + " times");
+                    log.info("to repeat more " + repeatTimes.get() + " times");
                 }
             }
         }).start();
@@ -81,21 +84,24 @@ public abstract class AbstractPeriodicTrigger<T> extends AbstractTrigger<T> {
 
     protected abstract Collection<OptionDescription> acceptedClassOptions();
 
+
     @Override
     protected void loadPeriodicityOptions(Options options) {
         if (options.has("period")) {
             period = (int) options.get("period");
-            LOG.info("loaded period value from option");
+            log.info("loaded period value from option");
         }
 
         if (options.has("repeat")) {
             repeatTimes = Optional.of((int) options.get("repeat"));
-            LOG.info("loaded repeat value from option");
+            log.info("loaded repeat value from option");
         }
         loadInstanceOptions(options);
     }
 
+
     protected abstract void loadInstanceOptions(Options options);
+
 
     @Override
     @SuppressWarnings("checkstyle:MagicNumber")
@@ -104,6 +110,7 @@ public abstract class AbstractPeriodicTrigger<T> extends AbstractTrigger<T> {
         repeatTimes = Optional.empty();
         initializeClassOptions();
     }
+
 
     protected abstract void initializeClassOptions();
 

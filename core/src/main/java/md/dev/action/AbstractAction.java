@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public abstract class AbstractAction<T> extends AbstractOptionsLoadableEntity implements Action<T> {
-    protected final Logger LOG = LoggerFactory.getLogger(AbstractAction.class);
+    protected final Logger log = LoggerFactory.getLogger(AbstractAction.class);
     @Getter
     @Setter
     private TriggerOutputProcessor<T, ?> next;
@@ -25,18 +25,22 @@ public abstract class AbstractAction<T> extends AbstractOptionsLoadableEntity im
         initializeOptions();
     }
 
+
     @Override
     public void initializeOptions() {
         initializeClassOptions();
     }
 
+
     protected abstract void initializeClassOptions();
+
 
     @Override
     public void loadClassOptions(Options options) {
         OptionsValidator.validateOptions(acceptedOptions(), options);
         loadInstanceOptions(options);
     }
+
 
     @Override
     public Collection<OptionDescription> acceptedOptions() {
@@ -50,6 +54,7 @@ public abstract class AbstractAction<T> extends AbstractOptionsLoadableEntity im
 
     protected abstract Collection<OptionDescription> acceptedClassOptions();
 
+
     @Override
     public void process(TriggerOutput<T> triggerOutput) {
         if (options == null || options.size() == 0) {
@@ -59,6 +64,7 @@ public abstract class AbstractAction<T> extends AbstractOptionsLoadableEntity im
         processNext(triggerOutput);
     }
 
+
     @Override
     public void processNext(TriggerOutput<T> triggerOutput) {
         if (next != null) {
@@ -66,10 +72,12 @@ public abstract class AbstractAction<T> extends AbstractOptionsLoadableEntity im
         }
     }
 
+
     @Override
     public Class getInputType() {
         return getType();
     }
+
 
     @Override
     public Class getOutputType() {

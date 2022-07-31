@@ -5,18 +5,20 @@ import java.io.IOException;
 import java.util.Properties;
 
 public class PropertyFileReader {
-    private final Properties PROPERTY;
+    private final Properties property;
+
 
     public PropertyFileReader(File file) {
-        PROPERTY = new Properties();
+        property = new Properties();
         try {
-            PROPERTY.load(this.getClass().getClassLoader().getResourceAsStream(file.getName()));
+            property.load(this.getClass().getClassLoader().getResourceAsStream(file.getName()));
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+
     public String get(String key) {
-        return PROPERTY.getProperty(key);
+        return property.getProperty(key);
     }
 }

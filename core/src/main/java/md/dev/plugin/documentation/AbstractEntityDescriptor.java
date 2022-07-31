@@ -10,33 +10,35 @@ import java.util.HashSet;
 import java.util.Set;
 
 abstract class AbstractEntityDescriptor<T> {
-    protected final Set<T> ENTITIES = new HashSet<>();
     protected DescriptionTable descriptionTable;
+    protected final Set<T> entities = new HashSet<>();
 
 
     public abstract String createDescription();
 
+
     public void addEntity(T entity) {
-        ENTITIES.add(entity);
+        entities.add(entity);
     }
+
 
     @SuppressWarnings("chekstyle:MagicNumber")
     protected DescriptionTable createDescriptionForOptions(
-            Collection<OptionDescription> optionDescriptions) {
-        final DescriptionTable OPTIONS_CELL = new DescriptionTable(new String[] {
+        Collection<OptionDescription> optionDescriptions) {
+        DescriptionTable optionsCell = new DescriptionTable(new String[]{
             "Name", "Type", "Default", "Description"
         });
         for (OptionDescription optionDescription : optionDescriptions) {
             DescriptionRow optionDescriptionRow = new DescriptionRow(4);
             optionDescriptionRow.addCell(new SimpleCell(optionDescription.getOption()));
             optionDescriptionRow.addCell(new SimpleCell(removeClassWordIfStartWithIt(
-                    optionDescription.getType().toString()))
+                optionDescription.getType().toString()))
             );
             optionDescriptionRow.addCell(new SimpleCell(optionDescription.getDefaultOptionValue()));
             optionDescriptionRow.addCell(new SimpleCell(optionDescription.getDescription()));
-            OPTIONS_CELL.addRow(optionDescriptionRow);
+            optionsCell.addRow(optionDescriptionRow);
         }
-        return OPTIONS_CELL;
+        return optionsCell;
     }
 
 
@@ -45,8 +47,8 @@ abstract class AbstractEntityDescriptor<T> {
             return stringToProcess;
         }
 
-        String[] splittedString = stringToProcess.split("\\.");
-        return splittedString[splittedString.length - 1];
+        String[] explodedString = stringToProcess.split("\\.");
+        return explodedString[explodedString.length - 1];
     }
 
 }

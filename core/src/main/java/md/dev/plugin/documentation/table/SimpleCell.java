@@ -1,14 +1,8 @@
 package md.dev.plugin.documentation.table;
 
-public class SimpleCell implements TableCell {
-    private final String CONTENT;
-
-    public SimpleCell(String content) {
-        CONTENT = content;
-    }
-
+public record SimpleCell(String content) implements TableCell {
     @Override
     public String toString() {
-        return String.format("<td>%s</td>\n", CONTENT);
+        return String.format("<td>%s</td>\n", content);
     }
 }

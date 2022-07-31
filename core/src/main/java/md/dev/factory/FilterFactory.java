@@ -11,12 +11,12 @@ public class FilterFactory extends EntityFactory<Filter> {
         super(prefix);
     }
 
+
     @SneakyThrows
     @Override
-    protected Filter create(
-            FactoryConfiguration factoryConfiguration,
-            Constructor constructor,
-            List<Object> defaultParams) {
+    protected Filter create(FactoryConfiguration factoryConfiguration,
+                            Constructor constructor,
+                            List<Object> defaultParams) {
         return (Filter) constructor.newInstance();
     }
 }

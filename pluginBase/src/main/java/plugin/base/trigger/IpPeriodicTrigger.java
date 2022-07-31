@@ -69,7 +69,7 @@ public class IpPeriodicTrigger extends AbstractPeriodicWebTrigger<String> {
 
     @Override
     protected void listen() {
-        WebApiResponse webApiResponse = WEB_API.perform();
+        WebApiResponse webApiResponse = webApi.perform();
 
         if (webApiResponse != null && webApiResponse.isOk()) {
             String newIp = webApiResponse.getResponse();
