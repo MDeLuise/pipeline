@@ -16,22 +16,24 @@ public class FilterOperatorFactory extends EntityFactory<FilterOperator> {
         super("");
     }
 
+
     @Override
     public FilterOperator build(FactoryConfiguration factoryConfiguration) {
-        final String NAME = (String) factoryConfiguration.get("name");
-        return switch (NAME) {
+        String name = (String) factoryConfiguration.get("name");
+        return switch (name) {
             case "and" -> new AndFilterOperator<>();
             case "or" -> new OrFilterOperator<>();
             case "not" -> new NotFilterOperator<>();
             case "leaf" -> new LeafFilterOperator<>();
-            default -> throw new NamedElementNotFoundException(NAME);
+            default -> throw new NamedElementNotFoundException(name);
         };
     }
 
+
     @Override
-    protected FilterOperator create(
-            FactoryConfiguration factoryConfiguration, Constructor constructor,
-            List<Object> defaultParams) {
+    protected FilterOperator create(FactoryConfiguration factoryConfiguration,
+                                    Constructor constructor,
+                                    List<Object> defaultParams) {
         return null;
     }
 }

@@ -20,29 +20,31 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApplicationLoader {
-
-    private final PipelineImpl PIPELINE;
-    private final List<Trigger<?>> TRIGGERS;
+    private final PipelineImpl pipeline;
+    private final List<Trigger<?>> triggers;
 
 
     public ApplicationLoader(JSONObject jsonObject, ApplicationFactories applicationFactories) {
-        PIPELINE = new PipelineImpl();
-        TRIGGERS = new ArrayList<>();
+        pipeline = new PipelineImpl();
+        triggers = new ArrayList<>();
         createTriggers(jsonObject, applicationFactories);
         createProcessors(jsonObject, applicationFactories);
     }
+
 
     public Pipeline buildAndStart() {
         start();
         return build();
     }
 
+
     public Pipeline build() {
-        return PIPELINE;
+        return pipeline;
     }
 
+
     public void start() {
-        TRIGGERS.forEach(Trigger::startListening);
+        triggers.forEach(Trigger::startListening);
     }
 
 
@@ -53,20 +55,20 @@ public class ApplicationLoader {
             String triggerName = jsonObj.getString("name");
             FactoryConfiguration factoryConfiguration = new FactoryConfiguration();
             factoryConfiguration.put("name", triggerName);
-            Trigger<?> trigger = applicationFactories.
-                    getTriggerFactories().
-                    build(factoryConfiguration);
+            Trigger<?> trigger = applicationFactories
+                .getTriggerFactories()
+                .build(factoryConfiguration);
 
             loadOptionsIfExist(jsonObj, trigger);
 
-            PIPELINE.addTrigger(trigger);
-            TRIGGERS.add(trigger);
+            pipeline.addTrigger(trigger);
+            triggers.add(trigger);
         });
     }
 
 
     private <T> void createProcessors(
-            JSONObject jsonObject, ApplicationFactories applicationFactories) {
+        JSONObject jsonObject, ApplicationFactories applicationFactories) {
         JSONArray jsonArrayProcessor = jsonObject.getJSONArray("processors");
         jsonArrayProcessor.iterator().forEachRemaining(obj -> {
             JSONObject jsonObj = (JSONObject) obj;
@@ -76,41 +78,41 @@ public class ApplicationLoader {
                 case "action" -> {
                     FactoryConfiguration factoryConfiguration = new FactoryConfiguration();
                     factoryConfiguration.put("name", jsonObj.getString("name"));
-                    Action<?> action = applicationFactories.
-                            getActionFactories().
-                            build(factoryConfiguration);
+                    Action<?> action = applicationFactories
+                        .getActionFactories()
+                        .build(factoryConfiguration);
                     loadOptionsIfExist(jsonObj, action);
-                    PIPELINE.addElement(action);
+                    pipeline.addElement(action);
                 }
 
                 case "transformer" -> {
                     FactoryConfiguration factoryConfiguration = new FactoryConfiguration();
                     factoryConfiguration.put("name", jsonObj.getString("name"));
-                    Transformer<T, ?> transformer = applicationFactories.
-                            getTransformerFactories().
-                            build(factoryConfiguration);
+                    Transformer<T, ?> transformer = applicationFactories
+                        .getTransformerFactories()
+                        .build(factoryConfiguration);
                     loadOptionsIfExist(jsonObj, transformer);
-                    PIPELINE.addElement(transformer);
+                    pipeline.addElement(transformer);
                 }
 
                 case "filter" -> {
                     FactoryConfiguration factoryConfiguration = new FactoryConfiguration();
                     factoryConfiguration.put("name", jsonObj.getString("name"));
-                    Filter<?> filter = applicationFactories.
-                            getFilterFactories().
-                            build(factoryConfiguration);
+                    Filter<?> filter = applicationFactories
+                        .getFilterFactories()
+                        .build(factoryConfiguration);
                     loadOptionsIfExist(jsonObj, filter);
-                    PIPELINE.addElement(filter);
+                    pipeline.addElement(filter);
                 }
 
                 case "filterOperator" -> {
                     JsonLoaderFilterOperator jsonLoaderFilterOperator =
-                            new JsonLoaderFilterOperator();
-                    PIPELINE.addElement(
-                            jsonLoaderFilterOperator.buildFilterOperator(
-                                    jsonObj,
-                                    applicationFactories.getFilterFactories()
-                            )
+                        new JsonLoaderFilterOperator();
+                    pipeline.addElement(
+                        jsonLoaderFilterOperator.buildFilterOperator(
+                            jsonObj,
+                            applicationFactories.getFilterFactories()
+                        )
                     );
                 }
 
@@ -119,10 +121,11 @@ public class ApplicationLoader {
         });
     }
 
+
     private void loadOptionsIfExist(JSONObject jsonObj, OptionsLoadableEntity entity) {
         if (jsonObj.has("options")) {
             Options options = JsonToOptionsConverter.convert(
-                    jsonObj.getJSONObject("options")
+                jsonObj.getJSONObject("options")
             );
             entity.loadOptions(options);
         } else {

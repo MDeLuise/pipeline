@@ -8,25 +8,28 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class EntityFactorySet<T> {
-    private final Set<EntityFactory<T>> FACTORIES = new HashSet<>();
-    private final Logger LOGGER = LoggerFactory.getLogger(EntityFactorySet.class);
+    private final Set<EntityFactory<T>> factories = new HashSet<>();
+    private final Logger log = LoggerFactory.getLogger(EntityFactorySet.class);
+
 
     public void addFactory(EntityFactory<T> factory) {
-        FACTORIES.add(factory);
+        factories.add(factory);
     }
 
+
     public T build(FactoryConfiguration factoryConfiguration) {
-        final String NAME = (String) factoryConfiguration.get("name");
-        LOGGER.info("searching " + NAME + " in " + FACTORIES);
-        for (EntityFactory<T> factory : FACTORIES) {
+        String name = (String) factoryConfiguration.get("name");
+        log.info("searching " + name + " in " + factories);
+        for (EntityFactory<T> factory : factories) {
             try {
                 return factory.build(factoryConfiguration);
             } catch (NamedElementNotFoundException ignore) {
-                LOGGER.info(NAME + " not in " + factory);
+                log.info(name + " not in " + factory);
             }
         }
-        throw new NamedElementNotFoundException(NAME);
+        throw new NamedElementNotFoundException(name);
     }
+
 
     public T build(String name) {
         FactoryConfiguration factoryConfiguration = new FactoryConfiguration();

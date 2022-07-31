@@ -8,9 +8,8 @@ import java.util.Collection;
 
 public class OptionsValidator {
 
-    public static void validateOptions(
-            Collection<OptionDescription> acceptedOptions,
-            Options givenOptions) {
+    public static void validateOptions(Collection<OptionDescription> acceptedOptions,
+                                       Options givenOptions) {
 
         if (givenOptions.size() == 0) {
             acceptNoOption(acceptedOptions);
@@ -22,18 +21,18 @@ public class OptionsValidator {
         }
     }
 
+
     public static void acceptNoOption(Collection<OptionDescription> acceptedOptions) {
-        boolean mandatoryMissingOptions = acceptedOptions.stream().
-                anyMatch(OptionDescription::isMandatory);
+        boolean mandatoryMissingOptions = acceptedOptions.stream()
+            .anyMatch(OptionDescription::isMandatory);
         if (mandatoryMissingOptions) {
             throw new MissingMandatoryOptionsException();
         }
     }
 
 
-    @SuppressWarnings("checkstyle:ReturnCount")
-    private static void checkTypeCompliance(
-            Collection<OptionDescription> acceptedOptions, String key, Options givenOptions) {
+    private static void checkTypeCompliance(Collection<OptionDescription> acceptedOptions,
+                                            String key, Options givenOptions) {
         if (!givenOptions.has(key)) {
             return;
         }
@@ -49,26 +48,28 @@ public class OptionsValidator {
         }
     }
 
-    private static Class giveWantedOptionType(
-            Collection<OptionDescription> acceptedOptions,
-            String key) {
+
+    private static Class giveWantedOptionType(Collection<OptionDescription> acceptedOptions,
+                                              String key) {
         OptionDescription optionDescription =
-                getOptionDescriptionFromCollection(acceptedOptions, key);
+            getOptionDescriptionFromCollection(acceptedOptions, key);
         return optionDescription != null ? optionDescription.getType() : null;
     }
 
-    private static void checkMandatoryOption(
-            Collection<OptionDescription> acceptedOptions, String key, Options givenOptions) {
+
+    private static void checkMandatoryOption(Collection<OptionDescription> acceptedOptions,
+                                             String key, Options givenOptions) {
         OptionDescription optionDescription =
-                getOptionDescriptionFromCollection(acceptedOptions, key);
+            getOptionDescriptionFromCollection(acceptedOptions, key);
         boolean isMandatory = optionDescription != null && optionDescription.isMandatory();
         if (isMandatory && !givenOptions.has(key)) {
             throw new MissingMandatoryOptionsException(key);
         }
     }
 
+
     private static OptionDescription getOptionDescriptionFromCollection(
-            Collection<OptionDescription> options, String option) {
+        Collection<OptionDescription> options, String option) {
         for (OptionDescription optionDescription : options) {
             if (optionDescription.getOption().equals(option)) {
                 return optionDescription;

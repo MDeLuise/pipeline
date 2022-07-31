@@ -10,12 +10,14 @@ abstract class AbstractFilterOperator<T> implements FilterOperator<T> {
     @Setter
     protected TriggerOutputProcessor<T, ?> next;
 
+
     @Override
     public void process(TriggerOutput<T> triggerOutput) {
         if (filterAll(triggerOutput)) {
             processNext(triggerOutput);
         }
     }
+
 
     @Override
     public void processNext(TriggerOutput<T> triggerOutput) {

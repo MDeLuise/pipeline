@@ -4,34 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DescriptionRow {
-    private final int LENGTH;
-    private final List<Object> CELLS;
+    private final int length;
+    private final List<Object> cells;
 
 
     public DescriptionRow(int length) {
-        LENGTH = length;
-        CELLS = new ArrayList<>();
+        this.length = length;
+        cells = new ArrayList<>();
     }
+
 
     public void addCell(TableCell tableCell) {
-        if (CELLS.size() == LENGTH) {
+        if (cells.size() == length) {
             throw new IndexOutOfBoundsException();
         }
-        CELLS.add(tableCell);
+        cells.add(tableCell);
     }
 
+
     public void addInnerTable(DescriptionTable innerTable) {
-        if (CELLS.size() == LENGTH) {
+        if (cells.size() == length) {
             throw new IndexOutOfBoundsException();
         }
         innerTable.setOuter(false);
-        CELLS.add(innerTable);
+        cells.add(innerTable);
     }
+
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("<tr>\n");
-        CELLS.forEach(builder::append);
+        cells.forEach(builder::append);
         builder.append("</tr>\n");
         return builder.toString();
     }

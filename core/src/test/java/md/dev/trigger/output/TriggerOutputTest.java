@@ -12,6 +12,7 @@ public class TriggerOutputTest {
         Assert.assertEquals(triggerOutput.getValue(), value);
     }
 
+
     @Test
     public void shouldOverrideStringValueCorrectly() {
         TriggerOutput<String> triggerOutput = new TriggerOutputImpl<>();
@@ -22,6 +23,7 @@ public class TriggerOutputTest {
         Assert.assertEquals(triggerOutput.getValue(), newValue);
     }
 
+
     @Test
     public void shouldAddIntegerValueCorrectly() {
         TriggerOutput<Integer> triggerOutput = new TriggerOutputImpl<>();
@@ -29,6 +31,7 @@ public class TriggerOutputTest {
         triggerOutput.setValue(value);
         Assert.assertEquals(triggerOutput.getValue().intValue(), value);
     }
+
 
     @Test
     public void shouldOverrideIntegerValueCorrectly() {

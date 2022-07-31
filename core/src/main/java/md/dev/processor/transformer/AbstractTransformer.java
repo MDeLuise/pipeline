@@ -13,9 +13,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public abstract class AbstractTransformer<T, E>
-        extends AbstractOptionsLoadableEntity
-        implements Transformer<T, E> {
+public abstract class AbstractTransformer<T, E> extends AbstractOptionsLoadableEntity
+    implements Transformer<T, E> {
     @Getter
     @Setter
     private TriggerOutputProcessor<E, ?> next;
@@ -34,10 +33,12 @@ public abstract class AbstractTransformer<T, E>
         processNext(transform(triggerOutput));
     }
 
+
     @Override
     public void processNext(TriggerOutput<E> triggerOutput) {
         next.process(triggerOutput);
     }
+
 
     @Override
     public Collection<OptionDescription> acceptedOptions() {
@@ -46,10 +47,12 @@ public abstract class AbstractTransformer<T, E>
         return acceptedOption;
     }
 
+
     @Override
     public void initializeOptions() {
         initializeClassOptions();
     }
+
 
     protected abstract void initializeClassOptions();
 
@@ -60,18 +63,20 @@ public abstract class AbstractTransformer<T, E>
         loadInstanceOptions(options);
     }
 
+
     @Override
     public Class getInputType() {
         return this.getClass().
-                getAnnotation(md.dev.plugin.annotation.Transformer.class).
-                inputType();
+            getAnnotation(md.dev.plugin.annotation.Transformer.class).
+            inputType();
     }
+
 
     @Override
     public Class getOutputType() {
         return this.getClass().
-                getAnnotation(md.dev.plugin.annotation.Transformer.class).
-                outputType();
+            getAnnotation(md.dev.plugin.annotation.Transformer.class).
+            outputType();
     }
 
 

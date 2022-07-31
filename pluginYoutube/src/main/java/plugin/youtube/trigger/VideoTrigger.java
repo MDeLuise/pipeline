@@ -57,7 +57,7 @@ public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
                         savedMap, new TypeReference<>() { }
                 );
             } catch (JsonProcessingException e) {
-                LOG.warn("cannot read state", e);
+                log.warn("cannot read state", e);
             }
         }
     }
@@ -71,7 +71,7 @@ public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
                     objectMapper.writeValueAsString(channelIdToLastVideo)
             );
         } catch (JsonProcessingException e) {
-            LOG.warn("cannot save state", e);
+            log.warn("cannot save state", e);
         }
     }
 
@@ -135,13 +135,13 @@ public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
         for (String channelId : channelsIds) {
             WebApiConfiguration webApiConfiguration = new WebApiConfiguration();
             webApiConfiguration.insert("channelId", channelId);
-            WEB_API.configure(webApiConfiguration);
+            webApi.configure(webApiConfiguration);
 
             WebApiResponse webApiResponse;
             try {
-                webApiResponse = WEB_API.perform();
+                webApiResponse = webApi.perform();
             } catch (Exception e) {
-                LOG.error("error while fetching new videos", e);
+                log.error("error while fetching new videos", e);
                 throw new PipelineGenericException(e.getMessage());
             }
             if (webApiResponse != null && webApiResponse.isOk()) {
@@ -150,7 +150,7 @@ public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
                     videos = objectMapper.readValue(
                             webApiResponse.getResponse(), YoutubeVideoList.class);
                 } catch (JsonProcessingException e) {
-                    LOG.error("error while read new videos to string", e);
+                    log.error("error while read new videos to string", e);
                     throw new PipelineGenericException(e.getMessage());
                 }
                 if (videos.size() > 0) {
@@ -169,7 +169,7 @@ public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
         try {
             channelsIds.addAll(Files.readAllLines(new File(file).toPath()));
         } catch (IOException e) {
-            LOG.error("cannot read file {}", file);
+            log.error("cannot read file {}", file);
             e.printStackTrace();
         }
     }

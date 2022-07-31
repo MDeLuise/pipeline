@@ -31,24 +31,24 @@ class Encryptor {
             IvParameterSpec ivSpec = new IvParameterSpec(iv);
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
             KeySpec spec = new PBEKeySpec(
-                    secretKey.toCharArray(),
-                    saltValue.getBytes(),
-                    65536,
-                    256
+                secretKey.toCharArray(),
+                saltValue.getBytes(),
+                65536,
+                256
             );
             SecretKey tmp = factory.generateSecret(spec);
             SecretKeySpec secretKeyObj = new SecretKeySpec(tmp.getEncoded(), "AES");
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
             cipher.init(Cipher.ENCRYPT_MODE, secretKeyObj, ivSpec);
             return Base64.getEncoder().
-                    encodeToString(cipher.doFinal(strToEncrypt.getBytes(StandardCharsets.UTF_8)));
+                encodeToString(cipher.doFinal(strToEncrypt.getBytes(StandardCharsets.UTF_8)));
         } catch (InvalidAlgorithmParameterException |
-                InvalidKeySpecException |
-                InvalidKeyException |
-                IllegalBlockSizeException |
-                BadPaddingException |
-                NoSuchAlgorithmException |
-                NoSuchPaddingException e) {
+            InvalidKeySpecException |
+            InvalidKeyException |
+            IllegalBlockSizeException |
+            BadPaddingException |
+            NoSuchAlgorithmException |
+            NoSuchPaddingException e) {
             LOG.warn("error while encrypting string", e);
             throw new HandleStateException();
         }
@@ -61,10 +61,10 @@ class Encryptor {
             IvParameterSpec ivSpec = new IvParameterSpec(iv);
             SecretKeyFactory factory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
             KeySpec spec = new PBEKeySpec(
-                    secretKey.toCharArray(),
-                    saltValue.getBytes(),
-                    65536,
-                    256
+                secretKey.toCharArray(),
+                saltValue.getBytes(),
+                65536,
+                256
             );
             SecretKey tmp = factory.generateSecret(spec);
             SecretKeySpec secretKeyObj = new SecretKeySpec(tmp.getEncoded(), "AES");
@@ -72,12 +72,12 @@ class Encryptor {
             cipher.init(Cipher.DECRYPT_MODE, secretKeyObj, ivSpec);
             return new String(cipher.doFinal(Base64.getDecoder().decode(strToDecrypt)));
         } catch (InvalidAlgorithmParameterException |
-                InvalidKeyException |
-                NoSuchAlgorithmException |
-                InvalidKeySpecException |
-                BadPaddingException |
-                IllegalBlockSizeException |
-                NoSuchPaddingException e) {
+            InvalidKeyException |
+            NoSuchAlgorithmException |
+            InvalidKeySpecException |
+            BadPaddingException |
+            IllegalBlockSizeException |
+            NoSuchPaddingException e) {
             LOG.warn("error while decrypting string", e);
             throw new HandleStateException();
         }

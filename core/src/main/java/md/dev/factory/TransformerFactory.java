@@ -11,12 +11,12 @@ public class TransformerFactory extends EntityFactory<Transformer> {
         super(prefix);
     }
 
+
     @SneakyThrows
     @Override
-    protected Transformer create(
-            FactoryConfiguration factoryConfiguration,
-            Constructor constructor,
-            List<Object> defaultParams) {
+    protected Transformer create(FactoryConfiguration factoryConfiguration,
+                                 Constructor constructor,
+                                 List<Object> defaultParams) {
         return (Transformer) constructor.newInstance();
     }
 

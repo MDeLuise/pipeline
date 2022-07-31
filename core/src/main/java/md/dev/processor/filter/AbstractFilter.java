@@ -17,22 +17,27 @@ public abstract class AbstractFilter<T> extends AbstractOptionsLoadableEntity im
     @Setter
     private TriggerOutputProcessor<T, ?> next;
 
+
     public AbstractFilter() {
         initializeOptions();
     }
+
 
     @Override
     public void initializeOptions() {
         initializeClassOptions();
     }
 
+
     protected abstract void initializeClassOptions();
+
 
     @Override
     public void loadClassOptions(Options options) {
         OptionsValidator.validateOptions(acceptedOptions(), options);
         loadInstanceOptions(options);
     }
+
 
     @Override
     public void process(TriggerOutput<T> triggerOutput) {
@@ -44,12 +49,14 @@ public abstract class AbstractFilter<T> extends AbstractOptionsLoadableEntity im
         }
     }
 
+
     @Override
     public void processNext(TriggerOutput<T> triggerOutput) {
         if (next != null) {
             next.process(triggerOutput);
         }
     }
+
 
     @Override
     public Collection<OptionDescription> acceptedOptions() {
@@ -58,10 +65,12 @@ public abstract class AbstractFilter<T> extends AbstractOptionsLoadableEntity im
         return acceptedOptions;
     }
 
+
     @Override
     public Class getInputType() {
         return getType();
     }
+
 
     @Override
     public Class getOutputType() {

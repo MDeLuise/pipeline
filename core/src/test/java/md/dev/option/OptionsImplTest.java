@@ -9,6 +9,7 @@ import org.junit.Test;
 public class OptionsImplTest {
     private Options options;
 
+
     @Before
     public void init() {
         options = new OptionsImpl();
@@ -23,6 +24,7 @@ public class OptionsImplTest {
         Assert.assertEquals(value, options.get(key));
     }
 
+
     @Test
     public void shouldOverrideValueCorrectly() {
         String key = "foo";
@@ -33,6 +35,7 @@ public class OptionsImplTest {
         Assert.assertEquals(newValue, options.get(key));
     }
 
+
     @Test
     public void shouldHasValuesCorrectlyTrue() {
         String key = "foo";
@@ -40,6 +43,7 @@ public class OptionsImplTest {
         options.add(key, value);
         Assert.assertTrue(options.has(key));
     }
+
 
     @Test
     public void shouldHasValuesCorrectlyFalse() {
@@ -49,6 +53,7 @@ public class OptionsImplTest {
         Assert.assertFalse(options.has("taz"));
     }
 
+
     @Test
     public void shouldParseStringValueCorrectly() {
         String key = "foo";
@@ -57,6 +62,7 @@ public class OptionsImplTest {
         Assert.assertEquals(value, options.getString(key));
     }
 
+
     @Test
     public void shouldParseIntValueCorrectly() {
         String key = "foo";
@@ -64,6 +70,7 @@ public class OptionsImplTest {
         options.add(key, value);
         Assert.assertEquals(value, options.getInt(key));
     }
+
 
     @Test(expected = ClassCastException.class)
     public void shouldErrorWhenParseWrongType() {

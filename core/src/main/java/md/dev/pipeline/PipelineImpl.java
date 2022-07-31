@@ -15,17 +15,19 @@ import java.util.function.Consumer;
 public class PipelineImpl implements Pipeline {
 
     private static class PipelineIterator implements Iterator<TriggerOutputProcessor<?, ?>> {
-
         private TriggerOutputProcessor<?, ?> nextElementToReturn;
+
 
         PipelineIterator(TriggerOutputProcessor<?, ?> firstInChain) {
             this.nextElementToReturn = firstInChain;
         }
 
+
         @Override
         public boolean hasNext() {
             return nextElementToReturn != null;
         }
+
 
         @Override
         public TriggerOutputProcessor<?, ?> next() {
@@ -36,17 +38,17 @@ public class PipelineImpl implements Pipeline {
     }
 
 
-    private final List<Trigger<?>> TRIGGERS = new ArrayList<>();
     private TriggerOutputProcessor<?, ?> firstInChain;
     private TriggerOutputProcessor<?, ?> lastInChain;
-    private final Logger LOGGER = LoggerFactory.getLogger(PipelineImpl.class);
+    private final List<Trigger<?>> triggers = new ArrayList<>();
+    private final Logger logger = LoggerFactory.getLogger(PipelineImpl.class);
 
 
     @Override
     public <T> void addTrigger(Trigger<T> trigger) {
-        LOGGER.debug("add trigger {}", trigger);
+        logger.debug("add trigger {}", trigger);
         checkTriggerTypeCompatibility(trigger, firstInChain);
-        TRIGGERS.add(trigger);
+        triggers.add(trigger);
         trigger.linkPipeline(this);
 
         configureEntityIfNeeded(trigger);
@@ -55,24 +57,25 @@ public class PipelineImpl implements Pipeline {
 
     @Override
     public void removeTrigger(Trigger<?> trigger) {
-        LOGGER.debug("remove trigger {}", trigger);
-        TRIGGERS.remove(trigger);
+        logger.debug("remove trigger {}", trigger);
+        triggers.remove(trigger);
         trigger.unlinkPipeline(this);
     }
 
+
     @Override
     public <T> void addElement(TriggerOutputProcessor<T, ?> triggerOutputProcessor) {
-        LOGGER.debug("add element {}", triggerOutputProcessor);
+        logger.debug("add element {}", triggerOutputProcessor);
         if (firstInChain == null) {
-            if (TRIGGERS.size() != 0) {
-                checkTriggerTypeCompatibility(TRIGGERS.get(0), triggerOutputProcessor);
+            if (triggers.size() != 0) {
+                checkTriggerTypeCompatibility(triggers.get(0), triggerOutputProcessor);
             }
             firstInChain = triggerOutputProcessor;
         } else {
             TriggerOutputProcessor<?, T> actualLastInChain =
-                    lastInChain == null ?
-                            (TriggerOutputProcessor<?, T>) firstInChain :
-                            (TriggerOutputProcessor<?, T>) lastInChain;
+                lastInChain == null ?
+                    (TriggerOutputProcessor<?, T>) firstInChain :
+                    (TriggerOutputProcessor<?, T>) lastInChain;
             checkElementCompatibility(actualLastInChain, triggerOutputProcessor);
             actualLastInChain.setNext(triggerOutputProcessor);
             lastInChain = triggerOutputProcessor;
@@ -81,10 +84,11 @@ public class PipelineImpl implements Pipeline {
         configureEntityIfNeeded(triggerOutputProcessor);
     }
 
-    @SuppressWarnings({"checkstyle:ReturnCount", "checkstyle:NestedIfDepth"})
+
+    @SuppressWarnings("checkstyle:NestedIfDepth")
     @Override
     public <T> void removeElement(
-            TriggerOutputProcessor<T, ?> elementToRemove) { // TODO add compatibility check
+        TriggerOutputProcessor<T, ?> elementToRemove) { // TODO add compatibility check
         if (firstInChain == null) {
             return;
         }
@@ -97,13 +101,13 @@ public class PipelineImpl implements Pipeline {
         } else {
             TriggerOutputProcessor<?, ?> prevElement = firstInChain;
             Iterator<TriggerOutputProcessor<?, ?>> iterator =
-                    new PipelineIterator(firstInChain.getNext());
+                new PipelineIterator(firstInChain.getNext());
             while (iterator.hasNext()) {
                 TriggerOutputProcessor<T, ?> currentElement =
-                        (TriggerOutputProcessor<T, ?>) iterator.next();
+                    (TriggerOutputProcessor<T, ?>) iterator.next();
                 if (currentElement == elementToRemove) {
                     TriggerOutputProcessor<T, ?> next =
-                            (TriggerOutputProcessor<T, ?>) currentElement.getNext();
+                        (TriggerOutputProcessor<T, ?>) currentElement.getNext();
                     ((TriggerOutputProcessor<?, T>) prevElement).setNext(next);
                     if (currentElement.getNext() == null) {
                         lastInChain = prevElement;
@@ -120,19 +124,22 @@ public class PipelineImpl implements Pipeline {
         }
     }
 
+
     @Override
     public <T> void process(TriggerOutput<T> triggerOutput) {
-        LOGGER.debug("processing {}", triggerOutput);
+        logger.debug("processing {}", triggerOutput);
         if (firstInChain != null) {
-            LOGGER.debug("calling process on {}", firstInChain);
+            logger.debug("calling process on {}", firstInChain);
             ((TriggerOutputProcessor<T, ?>) firstInChain).process(triggerOutput);
         }
     }
+
 
     @Override
     public Iterator<TriggerOutputProcessor<?, ?>> iterator() {
         return new PipelineIterator(firstInChain);
     }
+
 
     @Override
     public void forEach(Consumer<? super TriggerOutputProcessor<?, ?>> action) {
@@ -144,17 +151,17 @@ public class PipelineImpl implements Pipeline {
     private void configureEntityIfNeeded(PipelineEntity entity) {
         if (RuntimeConfigurableEntity.class.isAssignableFrom(entity.getClass())) {
             RuntimeConfigurableEntity runtimeConfigurableEntity =
-                    (RuntimeConfigurableEntity) entity;
+                (RuntimeConfigurableEntity) entity;
             if (!runtimeConfigurableEntity.isConfigured()) {
                 runtimeConfigurableEntity.configure();
             }
         }
     }
 
-    @SuppressWarnings("checkstyle:ReturnCount")
+
     private <T> void checkTriggerTypeCompatibility(
-            Trigger<T> trigger,
-            TriggerOutputProcessor<?, ?> triggerOutputProcessor) {
+        Trigger<T> trigger,
+        TriggerOutputProcessor<?, ?> triggerOutputProcessor) {
 
         if (triggerOutputProcessor == null) {
             return;
@@ -164,28 +171,28 @@ public class PipelineImpl implements Pipeline {
 
         if (!triggerOutputProcessorType.isAssignableFrom(triggerType)) {
             throw new IncompatibleTypeException(
-                    trigger.getClass(),
-                    triggerType,
-                    triggerOutputProcessor.getClass(),
-                    triggerOutputProcessorType
+                trigger.getClass(),
+                triggerType,
+                triggerOutputProcessor.getClass(),
+                triggerOutputProcessorType
             );
         }
     }
 
-    @SuppressWarnings("checkstyle:ReturnCount")
+
     private void checkElementCompatibility(
-            TriggerOutputProcessor<?, ?> triggerOutputProcessor1,
-            TriggerOutputProcessor<?, ?> triggerOutputProcessor2) {
+        TriggerOutputProcessor<?, ?> triggerOutputProcessor1,
+        TriggerOutputProcessor<?, ?> triggerOutputProcessor2) {
 
         Class triggerOutputProcessor1Type = triggerOutputProcessor1.getOutputType();
         Class triggerOutputProcessor2Type = triggerOutputProcessor2.getInputType();
 
         if (!triggerOutputProcessor2Type.isAssignableFrom(triggerOutputProcessor1Type)) {
             throw new IncompatibleTypeException(
-                    triggerOutputProcessor1.getClass(),
-                    triggerOutputProcessor1Type,
-                    triggerOutputProcessor2.getClass(),
-                    triggerOutputProcessor2Type
+                triggerOutputProcessor1.getClass(),
+                triggerOutputProcessor1Type,
+                triggerOutputProcessor2.getClass(),
+                triggerOutputProcessor2Type
             );
         }
     }

@@ -6,15 +6,16 @@ public class NotFilterOperator<T> extends AbstractComposeFilterOperator<T> {
 
     @Override
     public void insertOperator(FilterOperator<T> filterOperator) {
-        if (FILTERS.size() == 0) {
-            FILTERS.add(filterOperator);
+        if (filters.size() == 0) {
+            filters.add(filterOperator);
         } else {
             throw new UnsupportedOperationException();
         }
     }
 
+
     @Override
     public boolean filterAll(TriggerOutput<T> triggerOutput) {
-        return !FILTERS.get(0).filterAll(triggerOutput);
+        return !filters.get(0).filterAll(triggerOutput);
     }
 }

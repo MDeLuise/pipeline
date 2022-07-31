@@ -6,6 +6,6 @@ public class AndFilterOperator<T> extends AbstractComposeFilterOperator<T> {
 
     @Override
     public boolean filterAll(TriggerOutput<T> triggerOutput) {
-        return FILTERS.stream().allMatch(filters -> filters.filterAll(triggerOutput));
+        return filters.stream().allMatch(filters -> filters.filterAll(triggerOutput));
     }
 }

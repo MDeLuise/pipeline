@@ -9,7 +9,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface Transformer {
     String id();
+
     Class inputType();
+
     Class outputType();
+
     String description();
 }

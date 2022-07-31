@@ -9,7 +9,10 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 public @interface Action {
     String id();
+
     Class webApi() default Class.class;
+
     Class inputType();
+
     String description();
 }

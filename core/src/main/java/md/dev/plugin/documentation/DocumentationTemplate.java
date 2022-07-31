@@ -8,27 +8,28 @@ import md.dev.trigger.Trigger;
 
 @Setter
 class DocumentationTemplate {
-    private final String PREFIX;
-    private final String NAME;
     private AbstractEntityDescriptor<Trigger> triggersTable;
     private AbstractEntityDescriptor<Action> actionsTable;
     private AbstractEntityDescriptor<Filter> filtersTable;
     private AbstractEntityDescriptor<Transformer> transformersTable;
+    private final String prefix;
+    private final String name;
 
 
     DocumentationTemplate(String pluginName, String prefix) {
-        this.NAME = pluginName;
-        this.PREFIX = prefix;
+        this.name = pluginName;
+        this.prefix = prefix;
     }
+
 
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder("# ");
-        builder.append(NAME);
+        builder.append(name);
 
         builder.append("\nPrefix used: `");
-        builder.append(PREFIX);
-        if (PREFIX.isBlank()) {
+        builder.append(prefix);
+        if (prefix.isBlank()) {
             builder.append(" `(_no prefix_)");
         } else {
             builder.append("`");
