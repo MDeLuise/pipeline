@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Filter(
-        id = "gt",
-        inputType = Comparable.class,
-        description = "Filter out triggerOutput with value less then the given one."
+    id = "gt",
+    inputType = Comparable.class,
+    description = "Filter out triggerOutput with value less then the given one."
 )
 public class GreaterThenFilter<T extends Comparable<T>> extends AbstractCompareFilter<T> {
 
@@ -21,15 +21,18 @@ public class GreaterThenFilter<T extends Comparable<T>> extends AbstractCompareF
 
     }
 
+
     @Override
     protected Collection<? extends OptionDescription> acceptedImplementationOptions() {
         return new ArrayList<>();
     }
 
+
     @Override
     public void initializeClassOptions() {
 
     }
+
 
     @Override
     public boolean filter(TriggerOutput<T> triggerOutput) {

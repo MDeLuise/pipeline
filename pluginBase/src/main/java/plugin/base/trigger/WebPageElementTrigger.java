@@ -15,10 +15,10 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @Trigger(
-        id = "element",
-        webApi = JsoupSelectorApi.class,
-        outputType = String.class,
-        description = "Send in the pipeline the element selected from an html page."
+    id = "element",
+    webApi = JsoupSelectorApi.class,
+    outputType = String.class,
+    description = "Send in the pipeline the element selected from an html page."
 )
 public class WebPageElementTrigger extends AbstractPeriodicWebTrigger<String> {
     private boolean triggerOnlyIfChanged;
@@ -33,31 +33,32 @@ public class WebPageElementTrigger extends AbstractPeriodicWebTrigger<String> {
     @Override
     public Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "url",
-                        "URL to check for changes.",
-                        String.class,
-                        "null",
-                        true
-                ),
-                new OptionDescription(
-                        "onChange",
-                        "if true trigger only on element change.",
-                        java.lang.Boolean.class,
-                        "true",
-                        false
-                ),
-                new OptionDescription(
-                        "selector",
-                        "value used to select the element in the page" +
-                                " (<a href='https://jsoup.org/cookbook/extracting-data/selector" +
-                                "'>syntax</a>).",
-                        String.class,
-                        "null",
-                        false
-                )
+            new OptionDescription(
+                "url",
+                "URL to check for changes.",
+                String.class,
+                "null",
+                true
+            ),
+            new OptionDescription(
+                "onChange",
+                "if true trigger only on element change.",
+                java.lang.Boolean.class,
+                "true",
+                false
+            ),
+            new OptionDescription(
+                "selector",
+                "value used to select the element in the page" +
+                    " (<a href='https://jsoup.org/cookbook/extracting-data/selector" +
+                    "'>syntax</a>).",
+                String.class,
+                "null",
+                false
+            )
         ));
     }
+
 
     @Override
     public void loadState() {
@@ -67,16 +68,19 @@ public class WebPageElementTrigger extends AbstractPeriodicWebTrigger<String> {
         }
     }
 
+
     @Override
     public void saveState() {
         setProperty("element", element);
     }
+
 
     @Override
     protected void initializeClassOptions() {
         triggerOnlyIfChanged = true;
         element = "";
     }
+
 
     @Override
     protected void loadInstanceOptions(Options options) {
@@ -86,6 +90,7 @@ public class WebPageElementTrigger extends AbstractPeriodicWebTrigger<String> {
 
         configureWebApi(options);
     }
+
 
     @Override
     protected void listen() {
@@ -103,6 +108,7 @@ public class WebPageElementTrigger extends AbstractPeriodicWebTrigger<String> {
             }
         }
     }
+
 
     protected void configureWebApi(Options options) {
         WebApiConfiguration webApiConfiguration = new WebApiConfiguration();

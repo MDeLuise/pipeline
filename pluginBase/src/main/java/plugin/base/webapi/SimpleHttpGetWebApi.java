@@ -12,6 +12,7 @@ import java.io.IOException;
 public class SimpleHttpGetWebApi extends AbstractWebApi {
     private Connector connector;
 
+
     @Override
     public WebApiResponse perform() {
         try {
@@ -22,6 +23,7 @@ public class SimpleHttpGetWebApi extends AbstractWebApi {
         }
         return null;
     }
+
 
     @Override
     public void configure(WebApiConfiguration configuration) {

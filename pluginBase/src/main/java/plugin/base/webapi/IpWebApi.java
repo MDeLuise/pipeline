@@ -10,7 +10,8 @@ import md.dev.webapi.configuration.WebApiResponse;
 import java.io.IOException;
 
 public class IpWebApi extends AbstractWebApi {
-    private String urlToCheckIp = "https://api64.ipify.org";
+    private final String urlToCheckIp = "https://api64.ipify.org";
+
 
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
@@ -25,6 +26,7 @@ public class IpWebApi extends AbstractWebApi {
 
         return new WebApiResponse(200, response.getResponse());
     }
+
 
     @Override
     public void configure(WebApiConfiguration configuration) {

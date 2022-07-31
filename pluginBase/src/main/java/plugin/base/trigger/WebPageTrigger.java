@@ -16,10 +16,10 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @Trigger(
-        id = "page",
-        webApi = SimpleHttpGetWebApi.class,
-        outputType = String.class,
-        description = "Send hash of one web page in the pipeline."
+    id = "page",
+    webApi = SimpleHttpGetWebApi.class,
+    outputType = String.class,
+    description = "Send hash of one web page in the pipeline."
 )
 public class WebPageTrigger extends AbstractPeriodicWebTrigger<String> {
     private boolean triggerOnlyIfChanged;
@@ -30,6 +30,7 @@ public class WebPageTrigger extends AbstractPeriodicWebTrigger<String> {
         super(triggerOutputToUse, webApi);
     }
 
+
     @Override
     public void loadState() {
         String savedHash = getProperty("pageHash");
@@ -38,10 +39,12 @@ public class WebPageTrigger extends AbstractPeriodicWebTrigger<String> {
         }
     }
 
+
     @Override
     public void saveState() {
         setProperty("pageHash", pageHash);
     }
+
 
     @Override
     protected void initializeClassOptions() {
@@ -49,23 +52,24 @@ public class WebPageTrigger extends AbstractPeriodicWebTrigger<String> {
         pageHash = "";
     }
 
+
     @Override
     public Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "url",
-                        "URL to check for changes.",
-                        String.class,
-                        "null",
-                        true
-                ),
-                new OptionDescription(
-                        "onChange",
-                        "if true trigger only on page change.",
-                        java.lang.Boolean.class,
-                        "true",
-                        false
-                )
+            new OptionDescription(
+                "url",
+                "URL to check for changes.",
+                String.class,
+                "null",
+                true
+            ),
+            new OptionDescription(
+                "onChange",
+                "if true trigger only on page change.",
+                java.lang.Boolean.class,
+                "true",
+                false
+            )
         ));
     }
 
@@ -85,6 +89,7 @@ public class WebPageTrigger extends AbstractPeriodicWebTrigger<String> {
         webApiConfiguration.insert("url", options.get("url"));
         webApi.configure(webApiConfiguration);
     }
+
 
     @Override
     protected void listen() {

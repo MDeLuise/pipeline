@@ -90,7 +90,7 @@ public class SendBotMessageAction extends AbstractWebAction<String> {
         try {
             webApi.perform();
         } catch (Exception e) {
-            LOG.error("error while executing webapi", e);
+            log.error("error while executing webapi", e);
             throw new PipelineGenericException(e.getMessage());
         }
     }

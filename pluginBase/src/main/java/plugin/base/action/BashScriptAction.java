@@ -24,6 +24,7 @@ public class BashScriptAction extends AbstractAction<String> {
     private String scriptPath;
     private String args;
 
+
     @Override
     public void doAction(TriggerOutput<String> triggerOutput) {
         Process process;
@@ -40,7 +41,7 @@ public class BashScriptAction extends AbstractAction<String> {
 
             process.waitFor();
             BufferedReader reader = new BufferedReader(
-                    new InputStreamReader(process.getInputStream())
+                new InputStreamReader(process.getInputStream())
             );
             String line = reader.readLine();
             while (line != null) {
@@ -48,14 +49,16 @@ public class BashScriptAction extends AbstractAction<String> {
                 line = reader.readLine();
             }
         } catch (IOException | InterruptedException e) {
-            LOG.error("error while running script {}", scriptPath, e);
+            log.error("error while running script {}", scriptPath, e);
             throw new PipelineGenericException(e.getMessage());
         }
     }
 
+
     @Override
     public void initializeClassOptions() {
     }
+
 
     @Override
     protected void loadInstanceOptions(Options options) {
@@ -67,23 +70,24 @@ public class BashScriptAction extends AbstractAction<String> {
         }
     }
 
+
     @Override
     protected Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "script",
-                        "Path of the script to run.",
-                        String.class,
-                        "",
-                        true
-                ),
-                new OptionDescription(
-                        "args",
-                        "Parameters passed to the script.",
-                        String.class,
-                        "",
-                        false
-                )
+            new OptionDescription(
+                "script",
+                "Path of the script to run.",
+                String.class,
+                "",
+                true
+            ),
+            new OptionDescription(
+                "args",
+                "Parameters passed to the script.",
+                String.class,
+                "",
+                false
+            )
         ));
     }
 }

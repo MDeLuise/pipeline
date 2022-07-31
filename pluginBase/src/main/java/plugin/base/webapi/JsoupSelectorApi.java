@@ -12,6 +12,7 @@ public class JsoupSelectorApi implements WebApi {
     private String url;
     private String selector;
 
+
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
     public WebApiResponse perform() {
@@ -24,6 +25,7 @@ public class JsoupSelectorApi implements WebApi {
 
         return new WebApiResponse(200, doc.select(selector).toString());
     }
+
 
     @Override
     public void configure(WebApiConfiguration configuration) {

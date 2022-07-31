@@ -14,13 +14,14 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @Action(
-        id = "print",
-        inputType = String.class,
-        description = "Print string on stdout or in a file."
+    id = "print",
+    inputType = String.class,
+    description = "Print string on stdout or in a file."
 )
 public class PrintAction extends AbstractAction<String> {
     private String text;
     private File file;
+
 
     @Override
     public void doAction(TriggerOutput<String> triggerOutput) {
@@ -33,7 +34,7 @@ public class PrintAction extends AbstractAction<String> {
             try {
                 printStreamToUse = new PrintStream(file);
             } catch (FileNotFoundException e) {
-                LOG.error("Error while writing to file {}", file, e);
+                log.error("Error while writing to file {}", file, e);
             }
         }
         printStreamToUse.printf(text + "%n", toFormat);
@@ -42,30 +43,33 @@ public class PrintAction extends AbstractAction<String> {
         }
     }
 
+
     @Override
     public Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "text",
-                        "If not null print this text, otherwise print the action's input.",
-                        String.class,
-                        "null",
-                        false
-                ),
-                new OptionDescription(
-                        "filePath",
-                        "If not null print to given file.",
-                        String.class,
-                        "null",
-                        false
-                )
+            new OptionDescription(
+                "text",
+                "If not null print this text, otherwise print the action's input.",
+                String.class,
+                "null",
+                false
+            ),
+            new OptionDescription(
+                "filePath",
+                "If not null print to given file.",
+                String.class,
+                "null",
+                false
+            )
         ));
     }
+
 
     @Override
     public void initializeClassOptions() {
         text = "%s";
     }
+
 
     @Override
     public void loadInstanceOptions(Options options) {

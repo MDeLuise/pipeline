@@ -11,29 +11,31 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Transformer(
-        id = "objToStr",
-        inputType = Object.class,
-        outputType = String.class,
-        description = "Transforms an object into a string calling toString() method."
+    id = "objToStr",
+    inputType = Object.class,
+    outputType = String.class,
+    description = "Transforms an object into a string calling toString() method."
 )
 public class ObjectToStringTransformer extends AbstractTransformer<Object, String> {
     @Override
-    public TriggerOutput<String> transform(
-            TriggerOutput<Object> triggerOutput) {
+    public TriggerOutput<String> transform(TriggerOutput<Object> triggerOutput) {
         TriggerOutput<String> stringTriggerOutput = new TriggerOutputImpl<>();
         stringTriggerOutput.setValue(triggerOutput.getValue().toString());
         return stringTriggerOutput;
     }
+
 
     @Override
     public void initializeClassOptions() {
 
     }
 
+
     @Override
     protected Collection<? extends OptionDescription> acceptedClassOptions() {
         return new ArrayList<>();
     }
+
 
     @Override
     protected void loadInstanceOptions(Options options) {

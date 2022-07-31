@@ -12,21 +12,24 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @Trigger(
-        id = "echo",
-        outputType = String.class,
-        description = "Send a given String in the pipeline."
+    id = "echo",
+    outputType = String.class,
+    description = "Send a given String in the pipeline."
 )
 public class PeriodicEchoTrigger extends AbstractPeriodicTrigger<String> {
     private String echo;
+
 
     public PeriodicEchoTrigger(TriggerOutput<String> triggerOutputToUse) {
         super(triggerOutputToUse);
     }
 
+
     @Override
     public void loadState() {
 
     }
+
 
     @Override
     public void saveState() {
@@ -37,14 +40,15 @@ public class PeriodicEchoTrigger extends AbstractPeriodicTrigger<String> {
     @Override
     protected Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "echo",
-                        "value to send when triggered.",
-                        String.class,
-                        "default echo message",
-                        false
-                )));
+            new OptionDescription(
+                "echo",
+                "value to send when triggered.",
+                String.class,
+                "default echo message",
+                false
+            )));
     }
+
 
     protected void loadInstanceOptions(Options options) {
         if (options != null && options.has("echo")) {
@@ -52,10 +56,12 @@ public class PeriodicEchoTrigger extends AbstractPeriodicTrigger<String> {
         }
     }
 
+
     @Override
     protected void initializeClassOptions() {
         echo = "default echo message";
     }
+
 
     @Override
     protected void listen() {

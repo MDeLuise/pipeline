@@ -26,13 +26,13 @@ abstract class AbstractCompareFilter<T> extends AbstractFilter<T> {
     @Override
     public List<OptionDescription> acceptedClassOptions() {
         List<OptionDescription> acceptedOptions = new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "compareValue",
-                        "Value to compare the filter with.",
-                        Comparable.class,
-                        "null",
-                        true
-                )));
+            new OptionDescription(
+                "compareValue",
+                "Value to compare the filter with.",
+                Comparable.class,
+                "null",
+                true
+            )));
         acceptedOptions.addAll(acceptedImplementationOptions());
         return acceptedOptions;
     }

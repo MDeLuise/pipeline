@@ -14,10 +14,10 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @Trigger(
-        id = "ip",
-        webApi = IpWebApi.class,
-        outputType = String.class,
-        description = "Send the current IP in the pipeline."
+    id = "ip",
+    webApi = IpWebApi.class,
+    outputType = String.class,
+    description = "Send the current IP in the pipeline."
 )
 public class IpPeriodicTrigger extends AbstractPeriodicWebTrigger<String> {
     private String ip;
@@ -28,6 +28,7 @@ public class IpPeriodicTrigger extends AbstractPeriodicWebTrigger<String> {
         super(triggerOutputToUse, webApi);
     }
 
+
     @Override
     public void loadState() {
         String savedIp = getProperty("ip");
@@ -36,10 +37,12 @@ public class IpPeriodicTrigger extends AbstractPeriodicWebTrigger<String> {
         }
     }
 
+
     @Override
     public void saveState() {
         setProperty("ip", ip);
     }
+
 
     @Override
     protected void initializeClassOptions() {
@@ -47,18 +50,20 @@ public class IpPeriodicTrigger extends AbstractPeriodicWebTrigger<String> {
         ip = "";
     }
 
+
     @Override
     public Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "onChange",
-                        "if true trigger only on ip change.",
-                        java.lang.Boolean.class,
-                        "true",
-                        false
-                )
+            new OptionDescription(
+                "onChange",
+                "if true trigger only on ip change.",
+                java.lang.Boolean.class,
+                "true",
+                false
+            )
         ));
     }
+
 
     @Override
     protected void loadInstanceOptions(Options options) {
@@ -66,6 +71,7 @@ public class IpPeriodicTrigger extends AbstractPeriodicWebTrigger<String> {
             triggerOnlyIfChanged = (boolean) options.get("onChange");
         }
     }
+
 
     @Override
     protected void listen() {

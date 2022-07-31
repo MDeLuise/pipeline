@@ -90,7 +90,7 @@ public class GmailSender extends AbstractMailSender implements RuntimeConfigurab
 
     @Override
     public void doAction(TriggerOutput<String> triggerOutput) {
-        LOG.debug("[doAction] variable 'to': {}", to);
+        log.debug("[doAction] variable 'to': {}", to);
         for (String toAddress : to.split(",")) {
             WebApiConfiguration webApiConfiguration = new WebApiConfiguration();
             webApiConfiguration.insert("clientId", clientId);
