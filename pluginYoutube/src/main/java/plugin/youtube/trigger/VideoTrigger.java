@@ -30,10 +30,10 @@ import java.util.Map;
 import java.util.Set;
 
 @Trigger(
-        id = "video",
-        webApi = YouTubeVideoUploadedWebApi.class,
-        outputType = YoutubeVideo.class,
-        description = "Send in the pipeline the uploaded videos."
+    id = "video",
+    webApi = YouTubeVideoUploadedWebApi.class,
+    outputType = YoutubeVideo.class,
+    description = "Send in the pipeline the uploaded videos."
 )
 public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
     private Set<String> channelsIds;
@@ -42,10 +42,11 @@ public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
 
 
     public VideoTrigger(
-            TriggerOutput<YoutubeVideo> triggerOutputToUse,
-            WebApi webApi) {
+        TriggerOutput<YoutubeVideo> triggerOutputToUse,
+        WebApi webApi) {
         super(triggerOutputToUse, webApi);
     }
+
 
     @Override
     public void loadState() {
@@ -54,7 +55,8 @@ public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
             ObjectMapper objectMapper = new ObjectMapper();
             try {
                 channelIdToLastVideo = objectMapper.readValue(
-                        savedMap, new TypeReference<>() { }
+                    savedMap, new TypeReference<>() {
+                    }
                 );
             } catch (JsonProcessingException e) {
                 log.warn("cannot read state", e);
@@ -62,47 +64,50 @@ public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
         }
     }
 
+
     @Override
     public void saveState() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             setProperty(
-                    "channelIdToLastVideo",
-                    objectMapper.writeValueAsString(channelIdToLastVideo)
+                "channelIdToLastVideo",
+                objectMapper.writeValueAsString(channelIdToLastVideo)
             );
         } catch (JsonProcessingException e) {
             log.warn("cannot save state", e);
         }
     }
 
+
     @Override
     protected Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "channelId",
-                        "List of channels ids to check (separated by comma) (<a " +
-                                "href='https://vabs.github" +
-                                ".io/youtube-channel-name-converter/'>convert username to id</a>)",
-                        String.class,
-                        "null",
-                        false
-                ),
-                new OptionDescription(
-                        "file",
-                        "File's path containing channels ids to check (one per line)",
-                        String.class,
-                        "null",
-                        false
-                ),
-                new OptionDescription(
-                        "onChange",
-                        "if true trigger only on new videos.",
-                        java.lang.Boolean.class,
-                        "true",
-                        false
-                )
+            new OptionDescription(
+                "channelId",
+                "List of channels ids to check (separated by comma) (<a " +
+                    "href='https://vabs.github" +
+                    ".io/youtube-channel-name-converter/'>convert username to id</a>)",
+                String.class,
+                "null",
+                false
+            ),
+            new OptionDescription(
+                "file",
+                "File's path containing channels ids to check (one per line)",
+                String.class,
+                "null",
+                false
+            ),
+            new OptionDescription(
+                "onChange",
+                "if true trigger only on new videos.",
+                java.lang.Boolean.class,
+                "true",
+                false
+            )
         ));
     }
+
 
     @Override
     protected void loadInstanceOptions(Options options) {
@@ -129,6 +134,7 @@ public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
         triggerOnlyIfChanged = true;
     }
 
+
     @Override
     protected void listen() {
         ObjectMapper objectMapper = new ObjectMapper();
@@ -148,7 +154,7 @@ public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
                 YoutubeVideoList videos;
                 try {
                     videos = objectMapper.readValue(
-                            webApiResponse.getResponse(), YoutubeVideoList.class);
+                        webApiResponse.getResponse(), YoutubeVideoList.class);
                 } catch (JsonProcessingException e) {
                     log.error("error while read new videos to string", e);
                     throw new PipelineGenericException(e.getMessage());
@@ -161,9 +167,11 @@ public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
         saveState();
     }
 
+
     private void setChannelsIds(String channelsIdsString) {
         channelsIds.addAll(Arrays.asList(channelsIdsString.split(",")));
     }
+
 
     private void setChannelsIdsFromFile(String file) {
         try {
@@ -174,18 +182,19 @@ public class VideoTrigger extends AbstractPeriodicWebTrigger<YoutubeVideo> {
         }
     }
 
+
     private void triggerPipelineIfNeeded(String channelId, YoutubeVideoList fetchedVideos) {
         List<YoutubeVideo> videoToSendInThePipeline;
         if (!triggerOnlyIfChanged || !channelIdToLastVideo.containsKey(channelId)) {
             videoToSendInThePipeline = fetchedVideos.stream().toList();
         } else {
             videoToSendInThePipeline =
-                    fetchedVideos.stream().
-                            filter(
-                                ytVideo -> ytVideo.getPublishedDate().
-                                        compareTo(channelIdToLastVideo.get(channelId).
-                                                getPublishedDate()) > 0).
-                            toList();
+                fetchedVideos.stream().
+                    filter(
+                        ytVideo -> ytVideo.getPublishedDate().
+                            compareTo(channelIdToLastVideo.get(channelId).
+                                getPublishedDate()) > 0).
+                    toList();
         }
         YoutubeVideo lastVideo = fetchedVideos.get(fetchedVideos.size() - 1);
         channelIdToLastVideo.put(channelId, lastVideo);

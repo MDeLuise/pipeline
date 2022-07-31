@@ -15,8 +15,9 @@ import java.util.Comparator;
 public class YouTubeVideoFetcher {
     private static final String ENDPOINT = "https://www.youtube.com/feeds/videos.xml?channel_id=%s";
 
+
     public static YoutubeVideoList getLastVideos(String channelId)
-            throws IOException, FeedException {
+    throws IOException, FeedException {
         SyndFeedInput input = new SyndFeedInput();
         String computedEndpoint = String.format(ENDPOINT, channelId);
         SyndFeed feed = input.build(new XmlReader(new URL(computedEndpoint)));
@@ -28,6 +29,7 @@ public class YouTubeVideoFetcher {
         return videos;
     }
 
+
     private static YoutubeVideo convertEntryToVideo(SyndEntry entry) {
         YoutubeVideo youTubeVideo = new YoutubeVideo();
         youTubeVideo.setUrl(entry.getLink());
@@ -38,9 +40,11 @@ public class YouTubeVideoFetcher {
         return youTubeVideo;
     }
 
+
     private static String extractVideoId(String link) {
         return link.split("=")[1];
     }
+
 
     private static String extractChannelId(String link) {
         String[] explodedLink = link.split("/");
