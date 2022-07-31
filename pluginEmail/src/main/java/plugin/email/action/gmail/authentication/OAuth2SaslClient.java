@@ -26,20 +26,17 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 @SuppressWarnings({
-    "checkstyle:AbbreviationAsWordInName",
-    "checkstyle:InvalidJavadocPosition"
-})
+                      "checkstyle:AbbreviationAsWordInName",
+                      "checkstyle:InvalidJavadocPosition"
+                  })
 /**
  * An OAuth2 implementation of SaslClient.
  */
 public class OAuth2SaslClient implements SaslClient {
-    private static final Logger LOGGER =
-            Logger.getLogger(OAuth2SaslClient.class.getName());
-
+    private boolean isComplete;
     private final String oauthToken;
     private final CallbackHandler callbackHandler;
 
-    private boolean isComplete;
 
     /**
      * Creates a new instance of the OAuth2SaslClient. This will ordinarily only
@@ -51,22 +48,25 @@ public class OAuth2SaslClient implements SaslClient {
         this.callbackHandler = callbackHandler;
     }
 
+
     public String getMechanismName() {
         return "XOAUTH2";
     }
+
 
     public boolean hasInitialResponse() {
         return true;
     }
 
+
     public byte[] evaluateChallenge(byte[] challenge) throws SaslException {
         if (isComplete) {
             // Empty final response from server, just ignore it.
-            return new byte[] { };
+            return new byte[]{};
         }
 
         NameCallback nameCallback = new NameCallback("Enter name");
-        Callback[] callbacks = new Callback[] { nameCallback };
+        Callback[] callbacks = new Callback[]{nameCallback};
         try {
             callbackHandler.handle(callbacks);
         } catch (UnsupportedCallbackException e) {
@@ -77,24 +77,29 @@ public class OAuth2SaslClient implements SaslClient {
         String email = nameCallback.getName();
 
         byte[] response = String.format("user=%s\1auth=Bearer %s\1\1", email,
-                oauthToken).getBytes();
+            oauthToken
+        ).getBytes();
         isComplete = true;
         return response;
     }
+
 
     public boolean isComplete() {
         return isComplete;
     }
 
+
     public byte[] unwrap(byte[] incoming, int offset, int len)
-            throws SaslException {
+    throws SaslException {
         throw new IllegalStateException();
     }
 
+
     public byte[] wrap(byte[] outgoing, int offset, int len)
-            throws SaslException {
+    throws SaslException {
         throw new IllegalStateException();
     }
+
 
     public Object getNegotiatedProperty(String propName) {
         if (!isComplete()) {
@@ -102,6 +107,7 @@ public class OAuth2SaslClient implements SaslClient {
         }
         return null;
     }
+
 
     public void dispose() throws SaslException {
     }

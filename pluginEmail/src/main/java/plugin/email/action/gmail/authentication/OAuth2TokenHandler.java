@@ -32,9 +32,9 @@ public class OAuth2TokenHandler {
     private String clientSecret;
     private Token token;
     private String secretKey;
-    private final String STATE_ID = this.getClass().getName();
-    private final String SALT = "" + this.getClass().getName().hashCode();
-    private final Logger LOG = LoggerFactory.getLogger(OAuth2TokenHandler.class);
+    private final String stateId = this.getClass().getName();
+    private final String salt = "" + this.getClass().getName().hashCode();
+    private final Logger log = LoggerFactory.getLogger(OAuth2TokenHandler.class);
 
 
     private OAuth2TokenHandler() {
@@ -48,13 +48,14 @@ public class OAuth2TokenHandler {
         return singleton;
     }
 
+
     public String getToken() {
         if (token == null) {
-            LOG.info("token needs to be initialized");
+            log.info("token needs to be initialized");
             initializeToken();
         }
         if (isTokenExpired()) {
-            LOG.info("token is expired");
+            log.info("token is expired");
             refreshToken();
         }
         return token.accessToken;
@@ -67,20 +68,20 @@ public class OAuth2TokenHandler {
 
 
     private void initializeToken() {
-        if (StateHandler.hasProperty(STATE_ID, "token")) {
-            LOG.info("found local token for oauth");
+        if (StateHandler.hasProperty(stateId, "token")) {
+            log.info("found local token for oauth");
             secretKey = printAndReadStdinSensitive("insert chosen password: ");
 
             String savedToken;
             try {
                 savedToken = StateHandler.getSensitivePropertyFromState(
-                        secretKey,
-                        SALT,
-                        STATE_ID,
-                        "token"
+                    secretKey,
+                    salt,
+                    stateId,
+                    "token"
                 );
             } catch (HandleStateException e) {
-                LOG.error("error while reading previous state", e);
+                log.error("error while reading previous state", e);
                 throw e;
             }
 
@@ -88,20 +89,20 @@ public class OAuth2TokenHandler {
             try {
                 this.token = objectMapper.readValue(savedToken, Token.class);
             } catch (JsonProcessingException e) {
-                LOG.warn("error while loading oauth saved token", e);
+                log.warn("error while loading oauth saved token", e);
             }
         } else {
-            LOG.info("local token for oauth not found");
+            log.info("local token for oauth not found");
             System.out.println("go to: " + OAuth2GmailTokensConnector.getPermissionUrl(clientId));
 
             String authCode = printAndReadStdinSensitive("insert auth code: ");
             Response response;
             try {
                 response = OAuth2GmailTokensConnector.exchangeAuthCode(
-                        clientId, clientSecret, authCode
+                    clientId, clientSecret, authCode
                 );
             } catch (IOException | InterruptedException e) {
-                LOG.error("error while exchange authorization code");
+                log.error("error while exchange authorization code");
                 throw new PipelineGenericException(e.getMessage());
             }
 
@@ -111,30 +112,32 @@ public class OAuth2TokenHandler {
                 this.token.accessToken = jsonResponse.getString("access_token");
                 this.token.refreshToken = jsonResponse.getString("refresh_token");
                 this.token.expiration = new Date().toInstant().plusSeconds(jsonResponse.getLong(
-                        "expires_in")).toEpochMilli();
+                    "expires_in")).toEpochMilli();
                 saveToken();
             }
         }
     }
 
+
     private void refreshToken() {
         Response response = null;
         try {
             response = OAuth2GmailTokensConnector.refreshToken(clientId, clientSecret,
-                    token.refreshToken
+                token.refreshToken
             );
         } catch (IOException | InterruptedException e) {
-            LOG.error("error while refreshing token", e);
+            log.error("error while refreshing token", e);
         }
 
         if (response != null) {
             JSONObject jsonResponse = new JSONObject(response.getResponse());
             token.accessToken = jsonResponse.getString("access_token");
             token.expiration = new Date().toInstant().plusSeconds(jsonResponse.getLong(
-                    "expires_in")).toEpochMilli();
+                "expires_in")).toEpochMilli();
             saveToken();
         }
     }
+
 
     private void saveToken() {
         if (secretKey == null) {
@@ -143,19 +146,20 @@ public class OAuth2TokenHandler {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             StateHandler.saveSensitivePropertyInState(
-                    secretKey,
-                    SALT,
-                    STATE_ID,
-                    "token",
-                    objectMapper.writeValueAsString(token)
+                secretKey,
+                salt,
+                stateId,
+                "token",
+                objectMapper.writeValueAsString(token)
             );
         } catch (JsonProcessingException e) {
-            LOG.warn("error while saving token for oath", e);
+            log.warn("error while saving token for oath", e);
         } catch (HandleStateException e) {
-            LOG.warn("error while saving token for oath", e);
+            log.warn("error while saving token for oath", e);
             throw e;
         }
     }
+
 
     private boolean isTokenExpired() {
         return token.expiration <= ((new Date()).toInstant().toEpochMilli());
@@ -167,6 +171,7 @@ public class OAuth2TokenHandler {
         Scanner scanner = new Scanner(System.in);
         return scanner.nextLine();
     }
+
 
     private String printAndReadStdinSensitive(String message) {
         System.out.println(message);

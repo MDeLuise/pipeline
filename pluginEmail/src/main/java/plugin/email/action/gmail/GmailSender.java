@@ -19,11 +19,11 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @Action(
-        id = "gSend",
-        inputType = String.class,
-        webApi = SendGmailWebApi.class,
-        description = "Send an email using Gmail (see <a href='src/main/resources/gmail-config" +
-                ".md'>configuration</a>)."
+    id = "gSend",
+    inputType = String.class,
+    webApi = SendGmailWebApi.class,
+    description = "Send an email using Gmail (see <a href='src/main/resources/gmail-config" +
+        ".md'>configuration</a>)."
 )
 public class GmailSender extends AbstractMailSender implements RuntimeConfigurableEntity {
     private String clientId;
@@ -35,10 +35,12 @@ public class GmailSender extends AbstractMailSender implements RuntimeConfigurab
         super(webApi);
     }
 
+
     @Override
     protected void initializeImplementationOptions() {
         tokenHandler = OAuth2TokenHandler.getInstance();
     }
+
 
     @Override
     protected void loadImplementationOptions(Options options) {
@@ -51,42 +53,44 @@ public class GmailSender extends AbstractMailSender implements RuntimeConfigurab
 
         if (clientId == null) {
             throw new OptionException(
-                    "tokenVar",
-                    String.format(
-                            "cannot find global variable '%s'", options.getString("clientIdVar")
-                    )
+                "tokenVar",
+                String.format(
+                    "cannot find global variable '%s'", options.getString("clientIdVar")
+                )
             );
         }
 
         if (clientSecret == null) {
             throw new OptionException(
-                    "chatIdVar",
-                    String.format(
-                            "cannot find global variable '%s'", options.getString("clientSecretVar")
-                    )
+                "chatIdVar",
+                String.format(
+                    "cannot find global variable '%s'", options.getString("clientSecretVar")
+                )
             );
         }
     }
 
+
     @Override
     protected Collection<OptionDescription> acceptedImplementationOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "clientIdVar",
-                        "Global var containing the client id of the application.",
-                        String.class,
-                        "null",
-                        true
-                ),
-                new OptionDescription(
-                        "clientSecretVar",
-                        "Global var containing the client secret of the application.",
-                        String.class,
-                        "null",
-                        true
-                )
+            new OptionDescription(
+                "clientIdVar",
+                "Global var containing the client id of the application.",
+                String.class,
+                "null",
+                true
+            ),
+            new OptionDescription(
+                "clientSecretVar",
+                "Global var containing the client secret of the application.",
+                String.class,
+                "null",
+                true
+            )
         ));
     }
+
 
     @Override
     public void doAction(TriggerOutput<String> triggerOutput) {
@@ -99,10 +103,10 @@ public class GmailSender extends AbstractMailSender implements RuntimeConfigurab
             webApiConfiguration.insert("from", from);
             webApiConfiguration.insert("subject", subject);
             webApiConfiguration.insert(
-                    "text",
-                    text.isEmpty() ?
-                            triggerOutput.getValue() :
-                            String.format(text.get(), triggerOutput.getValue())
+                "text",
+                text.isEmpty() ?
+                    triggerOutput.getValue() :
+                    String.format(text.get(), triggerOutput.getValue())
             );
             webApiConfiguration.insert("tokenHandler", tokenHandler);
 
@@ -120,10 +124,12 @@ public class GmailSender extends AbstractMailSender implements RuntimeConfigurab
         }
     }
 
+
     @Override
     public boolean isConfigured() {
         return tokenHandler.isInitialized();
     }
+
 
     @Override
     public void configure() {
