@@ -14,6 +14,7 @@ public class FooWebTriggerTest extends BaseWebTriggerUnitTest {
         trigger = new FooWebTrigger(triggerOutput, webApi);
     }
 
+
     @Test
     public void shouldTriggerPipeline() {
         insertInMockedOptions("url", "foo");
@@ -23,6 +24,7 @@ public class FooWebTriggerTest extends BaseWebTriggerUnitTest {
         Mockito.verify(pipeline, Mockito.timeout(5000)).process(Mockito.any());
     }
 
+
     @Test
     public void shouldTriggerPipelineOneTimeOnly() {
         insertInMockedOptions("repeat", 1);
@@ -31,9 +33,10 @@ public class FooWebTriggerTest extends BaseWebTriggerUnitTest {
         trigger.linkPipeline(pipeline);
         trigger.startListening();
         Mockito.verify(
-                pipeline, Mockito.timeout(5000).times(1)
+            pipeline, Mockito.timeout(5000).times(1)
         ).process(Mockito.any());
     }
+
 
     @Test
     public void shouldTriggerPipelineSpecifiedTimes() {
@@ -48,9 +51,10 @@ public class FooWebTriggerTest extends BaseWebTriggerUnitTest {
         trigger.linkPipeline(pipeline);
         trigger.startListening();
         Mockito.verify(
-                pipeline, Mockito.timeout(wantedTimes * 1000 * 2).times(wantedTimes)
+            pipeline, Mockito.timeout(wantedTimes * 1000 * 2).times(wantedTimes)
         ).process(Mockito.any());
     }
+
 
     @Test
     public void shouldLoadDelayOption() {
@@ -61,9 +65,10 @@ public class FooWebTriggerTest extends BaseWebTriggerUnitTest {
         setWebResponseValue("foo");
         trigger.startListening();
         Mockito.verify(
-                pipeline, Mockito.after(8000).times(0)
+            pipeline, Mockito.after(8000).times(0)
         ).process(Mockito.any());
     }
+
 
     @Test
     public void shouldLoadPeriodOption() {
@@ -75,9 +80,10 @@ public class FooWebTriggerTest extends BaseWebTriggerUnitTest {
         trigger.linkPipeline(pipeline);
         trigger.startListening();
         Mockito.verify(
-                pipeline, Mockito.after(9000).times(1)
+            pipeline, Mockito.after(9000).times(1)
         ).process(Mockito.any());
     }
+
 
     @Test
     public void shouldLoadOnChangeOption() {
@@ -89,9 +95,10 @@ public class FooWebTriggerTest extends BaseWebTriggerUnitTest {
         trigger.linkPipeline(pipeline);
         trigger.startListening();
         Mockito.verify(
-                pipeline, Mockito.after(5000).times(1)
+            pipeline, Mockito.after(5000).times(1)
         ).process(Mockito.any());
     }
+
 
     @Test
     public void shouldTriggerWithCorrectValue() {
@@ -103,6 +110,7 @@ public class FooWebTriggerTest extends BaseWebTriggerUnitTest {
         Mockito.verify(triggerOutput, Mockito.timeout(2000)).setValue(Mockito.any());
     }
 
+
     @Test
     public void shouldAcceptUnknownOption() {
         insertInMockedOptions("foo", "bar");
@@ -110,12 +118,14 @@ public class FooWebTriggerTest extends BaseWebTriggerUnitTest {
         trigger.loadOptions(options);
     }
 
+
     @Test(expected = OptionMismatchTypeException.class)
     public void shouldThrowExceptionIfWrongOptionType() {
         insertInMockedOptions("period", true);
         insertInMockedOptions("url", "foo");
         trigger.loadOptions(options);
     }
+
 
     @Test(expected = MissingMandatoryOptionsException.class)
     public void shouldThrowExceptionIfMissingMandatoryOption() {

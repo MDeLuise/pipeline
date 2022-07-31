@@ -42,8 +42,10 @@ public class FooWebAction extends AbstractWebAction {
         super(webApi);
     }
 
+
     /**
      * Load used options.
+     *
      * @param options: options to load
      */
     @Override
@@ -53,26 +55,31 @@ public class FooWebAction extends AbstractWebAction {
         }
     }
 
+
     /**
      * List which options are loaded by the action.
+     *
      * @return collection of used options.
      */
     @SuppressWarnings("checkstyle:LineLength")
     @Override
     protected Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "tokenVar", // name of the option
-                        "Name of the global var containing the bot access token.", // description of the option
-                        String.class, // type of the option
-                        "null", // default value of the option,
-                        true // is option mandatory?
-                )
+            new OptionDescription(
+                "tokenVar", // name of the option
+                "Name of the global var containing the bot access token.",
+                // description of the option
+                String.class, // type of the option
+                "null", // default value of the option,
+                true // is option mandatory?
+            )
         ));
     }
 
+
     /**
      * Perform the action.
+     *
      * @param triggerOutput: data from the pipeline.
      */
     @Override
@@ -83,6 +90,7 @@ public class FooWebAction extends AbstractWebAction {
         webApi.configure(webApiConfiguration);
         webApi.perform();
     }
+
 
     /**
      * Initialize options with default values.

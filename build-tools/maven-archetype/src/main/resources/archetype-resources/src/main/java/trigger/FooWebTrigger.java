@@ -33,10 +33,10 @@ import java.util.Collection;
  *      - send a value of type T in the pipeline.
  */
 @Trigger(
-        id = "triFoo2",
-        webApi = FooWebApi0.class,
-        outputType = String.class,
-        description = "..."
+    id = "triFoo2",
+    webApi = FooWebApi0.class,
+    outputType = String.class,
+    description = "..."
 )
 public class FooWebTrigger extends AbstractPeriodicWebTrigger<String> {
     private String url;
@@ -46,6 +46,7 @@ public class FooWebTrigger extends AbstractPeriodicWebTrigger<String> {
         super(triggerOutputToUse, webApi);
     }
 
+
     /**
      * Initialize options with default values.
      */
@@ -53,26 +54,29 @@ public class FooWebTrigger extends AbstractPeriodicWebTrigger<String> {
     protected void initializeClassOptions() {
     }
 
+
     /**
      * List which options are loaded by the trigger.
+     *
      * @return collection of used options.
      */
     @Override
     public Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "url", // name of the option
-                        "URL to check for changes.", // description of the option
-                        String.class, // type of the option
-                        "false", // default value of the option
-                        true // is option mandatory?
-                )
+            new OptionDescription(
+                "url", // name of the option
+                "URL to check for changes.", // description of the option
+                String.class, // type of the option
+                "false", // default value of the option
+                true // is option mandatory?
+            )
         ));
     }
 
 
     /**
      * Load used options.
+     *
      * @param options: options to load.
      */
     @Override
@@ -82,11 +86,12 @@ public class FooWebTrigger extends AbstractPeriodicWebTrigger<String> {
         }
     }
 
+
     /**
      * Perform the purpose of the trigger. Notice that:
-     *      - the value sent to the pipeline must be inserted in the triggerOutput object
-     *          (don't create a new one),
-     *      - after that the triggerPipelines() must be called.
+     * - the value sent to the pipeline must be inserted in the triggerOutput object
+     * (don't create a new one),
+     * - after that the triggerPipelines() must be called.
      */
     @Override
     protected void listen() {
@@ -102,6 +107,7 @@ public class FooWebTrigger extends AbstractPeriodicWebTrigger<String> {
         // call saveState() if you want to save the state of the trigger
     }
 
+
     /**
      * Used in order to save the state of the trigger.
      */
@@ -109,6 +115,7 @@ public class FooWebTrigger extends AbstractPeriodicWebTrigger<String> {
     public void saveState() {
         setProperty("url", url);
     }
+
 
     /**
      * Used in order to load the previous state of the trigger.

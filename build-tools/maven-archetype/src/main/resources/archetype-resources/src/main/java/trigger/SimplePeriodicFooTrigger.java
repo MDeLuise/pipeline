@@ -30,9 +30,9 @@ import java.util.Random;
  *      - send a value of type T in the pipeline.
  */
 @Trigger(
-        id = "triFoo1",
-        outputType = Integer.class,
-        description = "..."
+    id = "triFoo1",
+    outputType = Integer.class,
+    description = "..."
 )
 public class SimplePeriodicFooTrigger extends AbstractPeriodicTrigger<Integer> {
     private int minimum;
@@ -43,32 +43,36 @@ public class SimplePeriodicFooTrigger extends AbstractPeriodicTrigger<Integer> {
         super(triggerOutputToUse);
     }
 
+
     /**
      * List which options are loaded by the trigger.
+     *
      * @return collection of used options.
      */
     @Override
     protected Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "min", // name of the option
-                        "minimum random value.", // description of the option
-                        java.lang.Integer.class, // type of the option
-                        "0", // default value of the option
-                        false // is option mandatory?
-                ),
-                new OptionDescription(
-                        "max", // name of the option
-                        "maximum random value.", // description of the option
-                        java.lang.Integer.class, // type of the option
-                        "100", // default value of the option
-                        false // is option mandatory?
-                )
+            new OptionDescription(
+                "min", // name of the option
+                "minimum random value.", // description of the option
+                java.lang.Integer.class, // type of the option
+                "0", // default value of the option
+                false // is option mandatory?
+            ),
+            new OptionDescription(
+                "max", // name of the option
+                "maximum random value.", // description of the option
+                java.lang.Integer.class, // type of the option
+                "100", // default value of the option
+                false // is option mandatory?
+            )
         ));
     }
 
+
     /**
      * Load used options.
+     *
      * @param options: options to load.
      */
     @Override
@@ -82,6 +86,7 @@ public class SimplePeriodicFooTrigger extends AbstractPeriodicTrigger<Integer> {
         }
     }
 
+
     /**
      * Initialize options with default values.
      */
@@ -92,11 +97,12 @@ public class SimplePeriodicFooTrigger extends AbstractPeriodicTrigger<Integer> {
         maximum = 100;
     }
 
+
     /**
      * Perform the purpose of the trigger. Notice that:
-     *      - the value sent to the pipeline must be inserted in the triggerOutput object
-     *          (don't create a new one),
-     *      - after that the triggerPipelines() must be called.
+     * - the value sent to the pipeline must be inserted in the triggerOutput object
+     * (don't create a new one),
+     * - after that the triggerPipelines() must be called.
      */
     @Override
     protected void listen() {
@@ -106,6 +112,7 @@ public class SimplePeriodicFooTrigger extends AbstractPeriodicTrigger<Integer> {
         // call saveState() if you want to save the state of the trigger
     }
 
+
     /**
      * Used in order to save the state of the trigger.
      */
@@ -114,6 +121,7 @@ public class SimplePeriodicFooTrigger extends AbstractPeriodicTrigger<Integer> {
         setProperty("min", "" + minimum);
         setProperty("max", "" + maximum);
     }
+
 
     /**
      * Used in order to load the previous state of the trigger.

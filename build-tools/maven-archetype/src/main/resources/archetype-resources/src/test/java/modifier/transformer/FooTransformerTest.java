@@ -14,11 +14,13 @@ public class FooTransformerTest extends BaseTransformerTest {
     private final String defaultGreaterThanStr = "value %s greater than threshold";
     private final String defaultEqualThanStr = "value %s equals than threshold";
 
+
     @Before
     public void init() {
         super.init();
         transformer = new FooTransformer();
     }
+
 
     @Test
     public void shouldCallNextInPipelineCorrectly() {
@@ -32,6 +34,7 @@ public class FooTransformerTest extends BaseTransformerTest {
         Mockito.verify(triggerOutputProcessor).process(Mockito.any());
     }
 
+
     @Test
     public void shouldTransformValueCorrectlyLess() {
         int triggerOutputValue = 41;
@@ -40,9 +43,12 @@ public class FooTransformerTest extends BaseTransformerTest {
         insertInMockedTriggerOutput(triggerOutputValue);
 
         TriggerOutput<String> transformedTriggerOutput = transformer.transform(triggerOutput);
-        Assert.assertEquals(String.format(defaultLessThanStr, triggerOutputValue),
-                transformedTriggerOutput.getValue());
+        Assert.assertEquals(
+            String.format(defaultLessThanStr, triggerOutputValue),
+            transformedTriggerOutput.getValue()
+        );
     }
+
 
     @Test
     public void shouldTransformValueCorrectlyEquals() {
@@ -52,9 +58,12 @@ public class FooTransformerTest extends BaseTransformerTest {
         insertInMockedTriggerOutput(triggerOutputValue);
 
         TriggerOutput<String> transformedTriggerOutput = transformer.transform(triggerOutput);
-        Assert.assertEquals(String.format(defaultEqualThanStr, triggerOutputValue),
-                transformedTriggerOutput.getValue());
+        Assert.assertEquals(
+            String.format(defaultEqualThanStr, triggerOutputValue),
+            transformedTriggerOutput.getValue()
+        );
     }
+
 
     @Test
     public void shouldTransformValueCorrectlyGreater() {
@@ -64,9 +73,12 @@ public class FooTransformerTest extends BaseTransformerTest {
         insertInMockedTriggerOutput(triggerOutputValue);
 
         TriggerOutput<String> transformedTriggerOutput = transformer.transform(triggerOutput);
-        Assert.assertEquals(String.format(defaultGreaterThanStr, triggerOutputValue),
-                transformedTriggerOutput.getValue());
+        Assert.assertEquals(
+            String.format(defaultGreaterThanStr, triggerOutputValue),
+            transformedTriggerOutput.getValue()
+        );
     }
+
 
     @Test
     public void shouldTransformValueCorrectlyLessWithOptions() {
@@ -81,6 +93,7 @@ public class FooTransformerTest extends BaseTransformerTest {
         Assert.assertEquals(value, transformedTriggerOutput.getValue());
     }
 
+
     @Test
     public void shouldTransformValueCorrectlyEqualsWithOptions() {
         String value = "foo";
@@ -93,6 +106,7 @@ public class FooTransformerTest extends BaseTransformerTest {
         TriggerOutput<String> transformedTriggerOutput = transformer.transform(triggerOutput);
         Assert.assertEquals(value, transformedTriggerOutput.getValue());
     }
+
 
     @Test
     public void shouldTransformValueCorrectlyGreaterWithOptions() {
@@ -107,6 +121,7 @@ public class FooTransformerTest extends BaseTransformerTest {
         Assert.assertEquals(value, transformedTriggerOutput.getValue());
     }
 
+
     @Test
     public void shouldTransformValueCorrectlyLessWithFormat() {
         String value = "foo %s";
@@ -118,10 +133,11 @@ public class FooTransformerTest extends BaseTransformerTest {
 
         TriggerOutput<String> transformedTriggerOutput = transformer.transform(triggerOutput);
         Assert.assertEquals(
-                String.format(value, triggerOutputValue),
-                transformedTriggerOutput.getValue()
+            String.format(value, triggerOutputValue),
+            transformedTriggerOutput.getValue()
         );
     }
+
 
     @Test
     public void shouldTransformValueCorrectlyEqualsWithFormat() {
@@ -134,10 +150,11 @@ public class FooTransformerTest extends BaseTransformerTest {
 
         TriggerOutput<String> transformedTriggerOutput = transformer.transform(triggerOutput);
         Assert.assertEquals(
-                String.format(value, triggerOutputValue),
-                transformedTriggerOutput.getValue()
+            String.format(value, triggerOutputValue),
+            transformedTriggerOutput.getValue()
         );
     }
+
 
     @Test
     public void shouldTransformValueCorrectlyGreaterWithFormat() {
@@ -150,16 +167,18 @@ public class FooTransformerTest extends BaseTransformerTest {
 
         TriggerOutput<String> transformedTriggerOutput = transformer.transform(triggerOutput);
         Assert.assertEquals(
-                String.format(value, triggerOutputValue),
-                transformedTriggerOutput.getValue()
+            String.format(value, triggerOutputValue),
+            transformedTriggerOutput.getValue()
         );
     }
+
 
     @Test
     public void shouldAcceptUnknownOption() {
         insertInMockedOptions("foo", "bar");
         transformer.loadOptions(options);
     }
+
 
     @Test(expected = OptionMismatchTypeException.class)
     public void shouldThrowExceptionIfWrongOptionType() {

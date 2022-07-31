@@ -24,6 +24,7 @@ abstract class BaseFilterTest {
         LoggerHandler.disableLog();
     }
 
+
     protected void insertInMockedOptions(String key, Object value) {
         keys.add(key);
         Mockito.when(options.getKeys()).thenAnswer(foo -> keys);

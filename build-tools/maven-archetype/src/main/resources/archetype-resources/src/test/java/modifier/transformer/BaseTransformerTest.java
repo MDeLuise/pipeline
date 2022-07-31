@@ -27,6 +27,7 @@ abstract class BaseTransformerTest {
         LoggerHandler.disableLog();
     }
 
+
     protected void insertInMockedOptions(String key, Object value) {
         keys.add(key);
         Mockito.when(options.getKeys()).thenAnswer(foo -> keys);
@@ -34,6 +35,7 @@ abstract class BaseTransformerTest {
         Mockito.when(options.has(key)).thenAnswer(foo -> true);
         Mockito.when(options.size()).thenAnswer(foo -> keys.size());
     }
+
 
     protected void insertInMockedOptionsString(String key, String value) {
         keys.add(key);
@@ -44,6 +46,7 @@ abstract class BaseTransformerTest {
         Mockito.when(options.size()).thenAnswer(foo -> keys.size());
     }
 
+
     protected void insertInMockedOptionsInt(String key, int value) {
         keys.add(key);
         Mockito.when(options.getKeys()).thenAnswer(foo -> keys);
@@ -52,6 +55,7 @@ abstract class BaseTransformerTest {
         Mockito.when(options.has(key)).thenAnswer(foo -> true);
         Mockito.when(options.size()).thenAnswer(foo -> keys.size());
     }
+
 
     protected void insertInMockedTriggerOutput(Object value) {
         Mockito.when(triggerOutput.getValue()).thenAnswer(foo -> value);

@@ -24,10 +24,10 @@ import java.util.Collection;
  * This is an example of Transformer.
  */
 @Transformer(
-        id = "traFoo",
-        inputType = Integer.class,
-        outputType = String.class,
-        description = "..."
+    id = "traFoo",
+    inputType = Integer.class,
+    outputType = String.class,
+    description = "..."
 )
 public class FooTransformer extends AbstractTransformer<Integer, String> {
     private int compareValue;
@@ -35,49 +35,53 @@ public class FooTransformer extends AbstractTransformer<Integer, String> {
     private String greaterThanStr;
     private String equalThanStr;
 
+
     /**
      * List which options are loaded by the trigger.
+     *
      * @return collection of used options.
      */
     @Override
     protected Collection<? extends OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "compareValue", // name of the option
-                        "Value to compare with.", // description of the option
-                        java.lang.Integer.class, // type of the option
-                        "0", // default value of the option
-                        false // is option mandatory?
-                ),
-                new OptionDescription(
-                        "lt", // name of the option
-                        "String to use if value is less than compareValue.",
-                        // description of the option
-                        String.class, // type of the option
-                        "value %s less than threshold", // default value of the option
-                        false // is option mandatory?
-                ),
-                new OptionDescription(
-                        "gt", // name of the option
-                        "String to use if value is greater than compareValue.",
-                        // description of the option
-                        String.class, // type of the option
-                        "value %s greater than threshold", // default value of the option
-                        false // is option mandatory?
-                ),
-                new OptionDescription(
-                        "eq", // name of the option
-                        "String to use if value is equals than compareValue.",
-                        // description of the option
-                        String.class, // type of the option
-                        "value %s equals than threshold", // default value of the option
-                        false // is option mandatory?
-                )
+            new OptionDescription(
+                "compareValue", // name of the option
+                "Value to compare with.", // description of the option
+                java.lang.Integer.class, // type of the option
+                "0", // default value of the option
+                false // is option mandatory?
+            ),
+            new OptionDescription(
+                "lt", // name of the option
+                "String to use if value is less than compareValue.",
+                // description of the option
+                String.class, // type of the option
+                "value %s less than threshold", // default value of the option
+                false // is option mandatory?
+            ),
+            new OptionDescription(
+                "gt", // name of the option
+                "String to use if value is greater than compareValue.",
+                // description of the option
+                String.class, // type of the option
+                "value %s greater than threshold", // default value of the option
+                false // is option mandatory?
+            ),
+            new OptionDescription(
+                "eq", // name of the option
+                "String to use if value is equals than compareValue.",
+                // description of the option
+                String.class, // type of the option
+                "value %s equals than threshold", // default value of the option
+                false // is option mandatory?
+            )
         ));
     }
 
+
     /**
      * Load used options.
+     *
      * @param options: options to load.
      */
     @Override
@@ -95,6 +99,7 @@ public class FooTransformer extends AbstractTransformer<Integer, String> {
             equalThanStr = options.getString("eq");
         }
     }
+
 
     /**
      * Perform the purpose of the transformer.
@@ -115,6 +120,7 @@ public class FooTransformer extends AbstractTransformer<Integer, String> {
         transformedTriggerOutput.setValue(valueToSet);
         return transformedTriggerOutput;
     }
+
 
     /**
      * Initialize options with default values.

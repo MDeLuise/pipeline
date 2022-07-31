@@ -28,30 +28,33 @@ import java.util.Collection;
  *      - this is NOT a web action (i.e. does NOT use WebApi object to perform web requests).
  */
 @Action(
-        id = "actFoo0",
-        inputType = Object.class,
-        description = "..."
+    id = "actFoo0",
+    inputType = Object.class,
+    description = "..."
 )
 public class SimpleFooAction extends AbstractAction<Object> {
     private String prepend;
     private PrintStream outputStream;
 
+
     /**
      * List which options are loaded by the action.
+     *
      * @return collection of used options.
      */
     @Override
     public Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "prepend", // name of the option
-                        "Text to prepend to all printed messages.", // description of the option
-                        Object.class, // type of the option
-                        "", // default value of the option
-                        false // is option mandatory?
-                )
+            new OptionDescription(
+                "prepend", // name of the option
+                "Text to prepend to all printed messages.", // description of the option
+                Object.class, // type of the option
+                "", // default value of the option
+                false // is option mandatory?
+            )
         ));
     }
+
 
     /**
      * Initialize options with default values.
@@ -62,8 +65,10 @@ public class SimpleFooAction extends AbstractAction<Object> {
         this.outputStream = System.out;
     }
 
+
     /**
      * Load used options.
+     *
      * @param options: options to load
      */
     @Override
@@ -77,8 +82,10 @@ public class SimpleFooAction extends AbstractAction<Object> {
         }
     }
 
+
     /**
      * Perform the action.
+     *
      * @param triggerOutput: data from the pipeline.
      */
     @Override
