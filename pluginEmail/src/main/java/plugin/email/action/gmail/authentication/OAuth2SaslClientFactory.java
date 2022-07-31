@@ -27,11 +27,11 @@ import java.util.logging.Logger;
  * passed to the OAuth2SaslClient. Other parameters are ignored.
  */
 public class OAuth2SaslClientFactory implements SaslClientFactory {
-    private static final Logger logger =
-            Logger.getLogger(OAuth2SaslClientFactory.class.getName());
-
+    private static final Logger LOG =
+        Logger.getLogger(OAuth2SaslClientFactory.class.getName());
     public static final String OAUTH_TOKEN_PROP =
-            "mail.imaps.sasl.mechanisms.oauth2.oauthToken";
+        "mail.imaps.sasl.mechanisms.oauth2.oauthToken";
+
 
     public SaslClient createSaslClient(String[] mechanisms,
                                        String authorizationId,
@@ -47,15 +47,18 @@ public class OAuth2SaslClientFactory implements SaslClientFactory {
             }
         }
         if (!matchedMechanism) {
-            logger.info("Failed to match any mechanisms");
+            LOG.info("Failed to match any mechanisms");
             return null;
         }
-        return new OAuth2SaslClient((String) props.get(OAUTH_TOKEN_PROP),
-                callbackHandler);
+        return new OAuth2SaslClient(
+            (String) props.get(OAUTH_TOKEN_PROP),
+            callbackHandler
+        );
     }
 
+
     public String[] getMechanismNames(Map<String, ?> props) {
-        return new String[] {"XOAUTH2"};
+        return new String[]{"XOAUTH2"};
     }
 }
 

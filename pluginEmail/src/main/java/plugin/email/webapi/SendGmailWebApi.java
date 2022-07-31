@@ -33,11 +33,11 @@ public class SendGmailWebApi extends AbstractWebApi {
         SMTPTransport smtp;
         try {
             smtp = OAuth2Authenticator.connectToSmtp(
-                    "smtp.gmail.com",
-                    587,
-                    from,
-                    TOKEN,
-                    false // true to debug enable
+                "smtp.gmail.com",
+                587,
+                from,
+                TOKEN,
+                false // true to debug enable
             );
         } catch (Exception e) {
             log.error("error while creating smtp object", e);
@@ -57,6 +57,7 @@ public class SendGmailWebApi extends AbstractWebApi {
 
         return new WebApiResponse(200, "");
     }
+
 
     @Override
     public void configure(WebApiConfiguration configuration) {

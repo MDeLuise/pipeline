@@ -29,9 +29,9 @@ import java.util.logging.Logger;
 
 
 @SuppressWarnings({
-    "checkstyle:AbbreviationAsWordInName",
-    "checkstyle:InvalidJavadocPosition"
-})
+                      "checkstyle:AbbreviationAsWordInName",
+                      "checkstyle:InvalidJavadocPosition"
+                  })
 /**
  * Performs OAuth2 authentication.
  *
@@ -40,23 +40,23 @@ import java.util.logging.Logger;
  */
 public class OAuth2Authenticator {
     public static Session session;
-    private static final Logger LOGGER =
-            Logger.getLogger(OAuth2Authenticator.class.getName());
 
 
     public static final class OAuth2Provider extends Provider {
         private static final long serialVersionUID = 1L;
 
+
         public OAuth2Provider() {
             super("Google OAuth2 Provider", 1.0,
-                    "Provides the XOAUTH2 SASL Mechanism"
+                "Provides the XOAUTH2 SASL Mechanism"
             );
             put(
-                    "SaslClientFactory.XOAUTH2",
-                    "plugin.email.action.gmail.authentication.OAuth2SaslClientFactory"
+                "SaslClientFactory.XOAUTH2",
+                "plugin.email.action.gmail.authentication.OAuth2SaslClientFactory"
             );
         }
     }
+
 
     /**
      * Installs the OAuth2 SASL provider. This must be called exactly once before
@@ -65,6 +65,7 @@ public class OAuth2Authenticator {
     public static void initialize() {
         Security.addProvider(new OAuth2Provider());
     }
+
 
     /**
      * Connects and authenticates to an IMAP server with OAuth2. You must have
@@ -79,12 +80,11 @@ public class OAuth2Authenticator {
      * @param debug      Whether to enable debug logging on the IMAP connection.
      * @return An authenticated IMAPStore that can be used for IMAP operations.
      */
-    public static IMAPStore connectToImap(
-            String host,
-            int port,
-            String userEmail,
-            String oauthToken,
-            boolean debug) throws Exception {
+    public static IMAPStore connectToImap(String host,
+                                          int port,
+                                          String userEmail,
+                                          String oauthToken,
+                                          boolean debug) throws Exception {
         Properties props = new Properties();
         props.put("mail.imaps.sasl.enable", "true");
         props.put("mail.imaps.sasl.mechanisms", "XOAUTH2");
@@ -98,6 +98,7 @@ public class OAuth2Authenticator {
         store.connect(host, port, userEmail, EMPTY_PASSWORD);
         return store;
     }
+
 
     @SuppressWarnings("checkstyle:JavadocTagContinuationIndentation")
     /**
@@ -114,12 +115,11 @@ public class OAuth2Authenticator {
      * @return An authenticated SMTPTransport that can be used for SMTP
      * operations.
      */
-    public static SMTPTransport connectToSmtp(
-            String host,
-            int port,
-            String userEmail,
-            String oauthToken,
-            boolean debug) throws Exception {
+    public static SMTPTransport connectToSmtp(String host,
+                                              int port,
+                                              String userEmail,
+                                              String oauthToken,
+                                              boolean debug) throws Exception {
         Properties props = new Properties();
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.starttls.required", "true");

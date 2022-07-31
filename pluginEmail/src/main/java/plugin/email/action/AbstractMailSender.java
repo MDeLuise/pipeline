@@ -17,9 +17,11 @@ public abstract class AbstractMailSender extends AbstractWebAction<String> {
     protected String subject;
     protected Optional<String> text;
 
+
     public AbstractMailSender(WebApi webApi) {
         super(webApi);
     }
+
 
     @Override
     public void initializeClassOptions() {
@@ -27,7 +29,9 @@ public abstract class AbstractMailSender extends AbstractWebAction<String> {
         initializeImplementationOptions();
     }
 
+
     protected abstract void initializeImplementationOptions();
+
 
     @Override
     protected void loadInstanceOptions(Options options) {
@@ -46,43 +50,46 @@ public abstract class AbstractMailSender extends AbstractWebAction<String> {
         loadImplementationOptions(options);
     }
 
+
     protected abstract void loadImplementationOptions(Options options);
+
 
     @Override
     protected Collection<OptionDescription> acceptedClassOptions() {
         Collection<OptionDescription> abstractOptions = new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "to",
-                        "Recipient of the email, separated by comma.",
-                        String.class,
-                        "null",
-                        true
-                ),
-                new OptionDescription(
-                        "from",
-                        "Sender of the email.",
-                        String.class,
-                        "null",
-                        true
-                ),
-                new OptionDescription(
-                        "subject",
-                        "Subject of the email.",
-                        String.class,
-                        "null",
-                        true
-                ),
-                new OptionDescription(
-                        "text",
-                        "Body of the email, if empty use passed triggerOutput.",
-                        String.class,
-                        "null",
-                        false
-                )
+            new OptionDescription(
+                "to",
+                "Recipient of the email, separated by comma.",
+                String.class,
+                "null",
+                true
+            ),
+            new OptionDescription(
+                "from",
+                "Sender of the email.",
+                String.class,
+                "null",
+                true
+            ),
+            new OptionDescription(
+                "subject",
+                "Subject of the email.",
+                String.class,
+                "null",
+                true
+            ),
+            new OptionDescription(
+                "text",
+                "Body of the email, if empty use passed triggerOutput.",
+                String.class,
+                "null",
+                false
+            )
         ));
         abstractOptions.addAll(acceptedImplementationOptions());
         return abstractOptions;
     }
+
 
     protected abstract Collection<OptionDescription> acceptedImplementationOptions();
 }
