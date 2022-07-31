@@ -23,11 +23,11 @@ import java.util.Optional;
 
 
 @Trigger(
-        id = "receive",
-        webApi = TelegramWebApi.class,
-        outputType = TelegramUpdate.class,
-        description = "Send in the pipeline telegram messages received by the bot (see <a " +
-                "href='src/main/resources/config.md'>configuration</a>)."
+    id = "receive",
+    webApi = TelegramWebApi.class,
+    outputType = TelegramUpdate.class,
+    description = "Send in the pipeline telegram messages received by the bot (see <a " +
+        "href='src/main/resources/config.md'>configuration</a>)."
 )
 public class TelegramBotReceiverTrigger extends AbstractPeriodicWebTrigger<TelegramUpdate> {
     private String accessToken;
@@ -36,9 +36,10 @@ public class TelegramBotReceiverTrigger extends AbstractPeriodicWebTrigger<Teleg
 
 
     public TelegramBotReceiverTrigger(
-            TriggerOutput<TelegramUpdate> triggerOutputToUse, WebApi webApi) {
+        TriggerOutput<TelegramUpdate> triggerOutputToUse, WebApi webApi) {
         super(triggerOutputToUse, webApi);
     }
+
 
     @Override
     public void loadState() {
@@ -47,6 +48,7 @@ public class TelegramBotReceiverTrigger extends AbstractPeriodicWebTrigger<Teleg
             this.lastUpdateId = Long.parseLong(savedLastUpdateId);
         }
     }
+
 
     @Override
     public void saveState() {
@@ -57,22 +59,23 @@ public class TelegramBotReceiverTrigger extends AbstractPeriodicWebTrigger<Teleg
     @Override
     protected Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "tokenVar",
-                        "Name of the global var containing the bot access token.",
-                        String.class,
-                        "null",
-                        true
-                ),
-                new OptionDescription(
-                        "chatId",
-                        "Filter messages only sent by this chatId.",
-                        Long.class,
-                        "null",
-                        false
-                )
+            new OptionDescription(
+                "tokenVar",
+                "Name of the global var containing the bot access token.",
+                String.class,
+                "null",
+                true
+            ),
+            new OptionDescription(
+                "chatId",
+                "Filter messages only sent by this chatId.",
+                Long.class,
+                "null",
+                false
+            )
         ));
     }
+
 
     @Override
     protected void loadInstanceOptions(Options options) {
@@ -85,16 +88,18 @@ public class TelegramBotReceiverTrigger extends AbstractPeriodicWebTrigger<Teleg
 
         if (accessToken == null) {
             throw new OptionException(
-                    "tokenVar",
-                    String.format("cannot find global variable '%s'", options.getString("tokenVar"))
+                "tokenVar",
+                String.format("cannot find global variable '%s'", options.getString("tokenVar"))
             );
         }
     }
+
 
     @Override
     protected void initializeClassOptions() {
         filterChatId = Optional.empty();
     }
+
 
     @Override
     protected void listen() {
@@ -125,7 +130,7 @@ public class TelegramBotReceiverTrigger extends AbstractPeriodicWebTrigger<Teleg
             }
 
             if (filterChatId.isPresent() &&
-                    !filterChatId.get().equals(telegramUpdate.getMessage().getFrom().getId())) {
+                !filterChatId.get().equals(telegramUpdate.getMessage().getFrom().getId())) {
                 continue;
             }
 

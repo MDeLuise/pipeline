@@ -16,11 +16,11 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @Action(
-        id = "send",
-        webApi = TelegramWebApi.class,
-        inputType = String.class,
-        description = "Send telegram messages via bot (see <a href='src/main/resources/config" +
-                ".md'>configuration</a>)."
+    id = "send",
+    webApi = TelegramWebApi.class,
+    inputType = String.class,
+    description = "Send telegram messages via bot (see <a href='src/main/resources/config" +
+        ".md'>configuration</a>)."
 )
 public class SendBotMessageAction extends AbstractWebAction<String> {
     private String accessToken;
@@ -30,6 +30,7 @@ public class SendBotMessageAction extends AbstractWebAction<String> {
     public SendBotMessageAction(WebApi webApi) {
         super(webApi);
     }
+
 
     @Override
     protected void loadInstanceOptions(Options options) {
@@ -42,42 +43,44 @@ public class SendBotMessageAction extends AbstractWebAction<String> {
 
         if (accessToken == null) {
             throw new OptionException(
-                    "tokenVar",
-                    String.format("cannot find global variable '%s'", options.getString("tokenVar"))
+                "tokenVar",
+                String.format("cannot find global variable '%s'", options.getString("tokenVar"))
             );
         }
 
         if (chatId == null) {
             throw new OptionException(
-                    "chatIdVar",
-                    String.format(
-                            "cannot find global variable '%s'", options.getString("chatIdVar")
-                    )
+                "chatIdVar",
+                String.format(
+                    "cannot find global variable '%s'", options.getString("chatIdVar")
+                )
             );
         }
     }
+
 
     @SuppressWarnings("checkstyle:LineLength")
     @Override
     protected Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "tokenVar",
-                        "Name of the global var containing the bot access token.",
-                        String.class,
-                        "null",
-                        true
-                ),
-                new OptionDescription(
-                        "chatIdVar",
-                        "Name of the global var containing the chat id to whom the bot will sent " +
-                                "messages.",
-                        String.class,
-                        "null",
-                        true
-                )
+            new OptionDescription(
+                "tokenVar",
+                "Name of the global var containing the bot access token.",
+                String.class,
+                "null",
+                true
+            ),
+            new OptionDescription(
+                "chatIdVar",
+                "Name of the global var containing the chat id to whom the bot will sent " +
+                    "messages.",
+                String.class,
+                "null",
+                true
+            )
         ));
     }
+
 
     @Override
     public void doAction(TriggerOutput<String> triggerOutput) {
@@ -94,6 +97,7 @@ public class SendBotMessageAction extends AbstractWebAction<String> {
             throw new PipelineGenericException(e.getMessage());
         }
     }
+
 
     @Override
     public void initializeClassOptions() {

@@ -18,12 +18,13 @@ public class TelegramWebApi extends AbstractWebApi {
 
     private final String readEndpoint = "https://api.telegram.org/bot%s/getUpdates";
     private final String sendEndpoint =
-            "https://api.telegram.org/bot%s/sendMessage?chat_id=%s&text=%s";
+        "https://api.telegram.org/bot%s/sendMessage?chat_id=%s&text=%s";
     private String token;
     private String chatId;
     private String text;
     private TelegramWebApiAction action;
     private long lastUpdateId;
+
 
     @Override
     public void configure(WebApiConfiguration configuration) {
@@ -43,6 +44,7 @@ public class TelegramWebApi extends AbstractWebApi {
             lastUpdateId = (long) configuration.get("lastUpdateId");
         }
     }
+
 
     @Override
     public WebApiResponse perform() {
