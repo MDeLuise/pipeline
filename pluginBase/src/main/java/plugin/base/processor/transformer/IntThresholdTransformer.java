@@ -12,10 +12,10 @@ import java.util.Arrays;
 import java.util.Collection;
 
 @Transformer(
-        id = "intThr",
-        inputType = Integer.class,
-        outputType = String.class,
-        description = "Transform an Integer into a String, depending on the value of the integer."
+    id = "intThr",
+    inputType = Integer.class,
+    outputType = String.class,
+    description = "Transform an Integer into a String, depending on the value of the integer."
 )
 public class IntThresholdTransformer extends AbstractTransformer<Integer, String> {
     private int compareValue;
@@ -23,39 +23,41 @@ public class IntThresholdTransformer extends AbstractTransformer<Integer, String
     private String greaterThanStr;
     private String equalThanStr;
 
+
     @Override
     protected Collection<? extends OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "compareValue",
-                        "Value to compare with.",
-                        java.lang.Integer.class,
-                        "0",
-                        false
-                ),
-                new OptionDescription(
-                        "lt",
-                        "String to use if value is less than compareValue.",
-                        String.class,
-                        "value %s less than threshold",
-                        false
-                ),
-                new OptionDescription(
-                        "gt",
-                        "String to use if value is greater than compareValue.",
-                        String.class,
-                        "value %s greater than threshold",
-                        false
-                ),
-                new OptionDescription(
-                        "eq",
-                        "String to use if value is equals than compareValue.",
-                        String.class,
-                        "value %s equals than threshold",
-                        false
-                )
+            new OptionDescription(
+                "compareValue",
+                "Value to compare with.",
+                java.lang.Integer.class,
+                "0",
+                false
+            ),
+            new OptionDescription(
+                "lt",
+                "String to use if value is less than compareValue.",
+                String.class,
+                "value %s less than threshold",
+                false
+            ),
+            new OptionDescription(
+                "gt",
+                "String to use if value is greater than compareValue.",
+                String.class,
+                "value %s greater than threshold",
+                false
+            ),
+            new OptionDescription(
+                "eq",
+                "String to use if value is equals than compareValue.",
+                String.class,
+                "value %s equals than threshold",
+                false
+            )
         ));
     }
+
 
     @Override
     protected void loadInstanceOptions(Options options) {
@@ -73,23 +75,25 @@ public class IntThresholdTransformer extends AbstractTransformer<Integer, String
         }
     }
 
+
     @Override
     public TriggerOutput<String> transform(TriggerOutput<Integer> triggerOutput) {
         TriggerOutput<String> transformedTriggerOutput = new TriggerOutputImpl<>();
         int intTriggerOutputValue = triggerOutput.getValue();
         switch (Integer.compare(compareValue, intTriggerOutputValue)) {
             case 0 -> transformedTriggerOutput.setValue(String.format(
-                    equalThanStr, intTriggerOutputValue)
+                equalThanStr, intTriggerOutputValue)
             );
             case 1 -> transformedTriggerOutput.setValue(String.format(
-                    lessThanStr, intTriggerOutputValue)
+                lessThanStr, intTriggerOutputValue)
             );
             default -> transformedTriggerOutput.setValue(String.format(
-                    greaterThanStr, intTriggerOutputValue)
+                greaterThanStr, intTriggerOutputValue)
             );
         }
         return transformedTriggerOutput;
     }
+
 
     @Override
     public void initializeClassOptions() {

@@ -13,9 +13,9 @@ import java.util.Collection;
 import java.util.Random;
 
 @Trigger(
-        id = "rand",
-        outputType = Integer.class,
-        description = "Send random number in the pipeline."
+    id = "rand",
+    outputType = Integer.class,
+    description = "Send random number in the pipeline."
 )
 public class PeriodicRandomIntTrigger extends AbstractPeriodicTrigger<Integer> {
     private int minimum;
@@ -26,10 +26,12 @@ public class PeriodicRandomIntTrigger extends AbstractPeriodicTrigger<Integer> {
         super(triggerOutputToUse);
     }
 
+
     @Override
     public void loadState() {
 
     }
+
 
     @Override
     public void saveState() {
@@ -40,22 +42,23 @@ public class PeriodicRandomIntTrigger extends AbstractPeriodicTrigger<Integer> {
     @Override
     protected Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "min",
-                        "minimum random value.",
-                        java.lang.Integer.class,
-                        "0",
-                        false
-                ),
-                new OptionDescription(
-                        "max",
-                        "maximum random value.",
-                        java.lang.Integer.class,
-                        "100",
-                        false
-                )
+            new OptionDescription(
+                "min",
+                "minimum random value.",
+                java.lang.Integer.class,
+                "0",
+                false
+            ),
+            new OptionDescription(
+                "max",
+                "maximum random value.",
+                java.lang.Integer.class,
+                "100",
+                false
+            )
         ));
     }
+
 
     protected void loadInstanceOptions(Options options) {
         if (options != null && options.has("min")) {
@@ -67,12 +70,14 @@ public class PeriodicRandomIntTrigger extends AbstractPeriodicTrigger<Integer> {
         }
     }
 
+
     @SuppressWarnings("checkstyle:MagicNumber")
     @Override
     protected void initializeClassOptions() {
         minimum = 0;
         maximum = 100;
     }
+
 
     @Override
     protected void listen() {

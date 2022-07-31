@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Trigger(
-        id = "oneTrue",
-        outputType = Boolean.class,
-        description = "Send one single True value in the pipeline."
+    id = "oneTrue",
+    outputType = Boolean.class,
+    description = "Send one single True value in the pipeline."
 )
 public class OneTimeTrueTrigger extends AbstractOneTimeTrigger<Boolean> {
 
@@ -21,16 +21,19 @@ public class OneTimeTrueTrigger extends AbstractOneTimeTrigger<Boolean> {
         super(triggerOutputToUse);
     }
 
+
     @Override
     protected void listen() {
         triggerOutput.setValue(Boolean.TRUE);
         triggerPipelines();
     }
 
+
     @Override
     protected Collection<? extends OptionDescription> acceptedClassOptions() {
         return new ArrayList<>();
     }
+
 
     @Override
     public void initializeClassOptions() {
@@ -41,10 +44,12 @@ public class OneTimeTrueTrigger extends AbstractOneTimeTrigger<Boolean> {
     protected void loadInstanceOptions(Options options) {
     }
 
+
     @Override
     public void loadState() {
 
     }
+
 
     @Override
     public void saveState() {

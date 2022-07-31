@@ -9,24 +9,27 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Filter(
-        id = "eq",
-        inputType = Comparable.class,
-        description = "Filter out triggerOutput with value not equals to the given one."
+    id = "eq",
+    inputType = Comparable.class,
+    description = "Filter out triggerOutput with value not equals to the given one."
 )
 public class EqualsFilter<T extends Comparable<T>> extends AbstractCompareFilter<T> {
     @Override
     protected void loadImplementationOptions(Options options) {
     }
 
+
     @Override
     protected Collection<? extends OptionDescription> acceptedImplementationOptions() {
         return Collections.emptyList();
     }
 
+
     @Override
     public void initializeClassOptions() {
 
     }
+
 
     @Override
     public boolean filter(TriggerOutput<T> triggerOutput) {

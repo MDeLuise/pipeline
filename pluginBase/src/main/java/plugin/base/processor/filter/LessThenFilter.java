@@ -9,9 +9,9 @@ import java.util.Collection;
 import java.util.Collections;
 
 @Filter(
-        id = "lt",
-        inputType = Comparable.class,
-        description = "Filter out triggerOutput with value greater then the given one."
+    id = "lt",
+    inputType = Comparable.class,
+    description = "Filter out triggerOutput with value greater then the given one."
 )
 public class LessThenFilter<T extends Comparable<T>> extends AbstractCompareFilter<T> {
     @Override
@@ -19,15 +19,18 @@ public class LessThenFilter<T extends Comparable<T>> extends AbstractCompareFilt
 
     }
 
+
     @Override
     protected Collection<? extends OptionDescription> acceptedImplementationOptions() {
         return Collections.emptyList();
     }
 
+
     @Override
     public void initializeClassOptions() {
 
     }
+
 
     @Override
     public boolean filter(TriggerOutput<T> triggerOutput) {

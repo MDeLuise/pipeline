@@ -14,13 +14,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @Transformer(
-        id = "regexExt",
-        inputType = String.class,
-        outputType = String.class,
-        description = "Extract matching regex from a string."
+    id = "regexExt",
+    inputType = String.class,
+    outputType = String.class,
+    description = "Extract matching regex from a string."
 )
 public class RegexExtractionTransformer extends AbstractTransformer<String, String> {
     private Pattern pattern;
+
 
     @Override
     public TriggerOutput<String> transform(TriggerOutput<String> triggerOutput) {
@@ -31,17 +32,19 @@ public class RegexExtractionTransformer extends AbstractTransformer<String, Stri
         return formattedTriggerOutput;
     }
 
+
     @Override
     protected Collection<? extends OptionDescription> acceptedClassOptions() {
         return new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "pattern",
-                        "Pattern to use to match regex.",
-                        String.class,
-                        ".*",
-                        false
-                )));
+            new OptionDescription(
+                "pattern",
+                "Pattern to use to match regex.",
+                String.class,
+                ".*",
+                false
+            )));
     }
+
 
     @Override
     protected void loadInstanceOptions(Options options) {
@@ -49,6 +52,7 @@ public class RegexExtractionTransformer extends AbstractTransformer<String, Stri
             pattern = Pattern.compile((String) options.get("pattern"));
         }
     }
+
 
     @Override
     public void initializeClassOptions() {

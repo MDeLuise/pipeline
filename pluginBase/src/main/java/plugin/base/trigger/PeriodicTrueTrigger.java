@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 @Trigger(
-        id = "perTrue",
-        outputType = Boolean.class,
-        description = "Send True values in the pipeline."
+    id = "perTrue",
+    outputType = Boolean.class,
+    description = "Send True values in the pipeline."
 )
 public class PeriodicTrueTrigger extends AbstractPeriodicTrigger<Boolean> {
 
@@ -21,15 +21,18 @@ public class PeriodicTrueTrigger extends AbstractPeriodicTrigger<Boolean> {
         super(triggerOutputToUse);
     }
 
+
     @Override
     public void loadState() {
 
     }
 
+
     @Override
     public void saveState() {
 
     }
+
 
     @Override
     protected void listen() {
@@ -39,13 +42,16 @@ public class PeriodicTrueTrigger extends AbstractPeriodicTrigger<Boolean> {
         log.debug("pipeline triggered");
     }
 
+
     @Override
     protected Collection<OptionDescription> acceptedClassOptions() {
         return new ArrayList<>();
     }
 
+
     protected void loadInstanceOptions(Options options) {
     }
+
 
     @Override
     protected void initializeClassOptions() {
