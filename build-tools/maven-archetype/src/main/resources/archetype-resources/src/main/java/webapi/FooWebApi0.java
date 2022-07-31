@@ -28,6 +28,7 @@ public class FooWebApi0 extends AbstractWebApi {
 
     /**
      * Perform the purpose of the WebApi.
+     *
      * @return response of the performed request.
      */
     @Override
@@ -41,8 +42,10 @@ public class FooWebApi0 extends AbstractWebApi {
         }
     }
 
+
     /**
      * Load used options.
+     *
      * @param webApiConfiguration: webApiConfiguration to load
      */
     @Override

@@ -30,12 +30,12 @@ public class FooWebApi1 extends AbstractWebApi {
         SEND, RECEIVE
     }
 
-    private final String READ_ENDPOINT = "https://endpoint1.com";
-    private final String SEND_ENDPOINT =
-            "https://endpoint2.com?token=%s&text=%s";
     private String token;
     private String text;
     private FooWebApiAction action;
+    private final String readEndpoint = "https://endpoint1.com";
+    private final String sendEndpoint =
+        "https://endpoint2.com?token=%s&text=%s";
 
 
     /**
@@ -64,10 +64,10 @@ public class FooWebApi1 extends AbstractWebApi {
         String formattedEndpoint;
         Connector connector;
         if (action == FooWebApiAction.RECEIVE) {
-            formattedEndpoint = String.format(READ_ENDPOINT);
+            formattedEndpoint = String.format(readEndpoint);
             connector = new GetConnector(formattedEndpoint);
         } else {
-            formattedEndpoint = String.format(SEND_ENDPOINT, token, text);
+            formattedEndpoint = String.format(sendEndpoint, token, text);
             connector = new PostConnector(formattedEndpoint);
         }
         return performAction(connector);

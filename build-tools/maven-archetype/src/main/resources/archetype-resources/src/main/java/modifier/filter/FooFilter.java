@@ -25,9 +25,9 @@ import java.util.List;
  *      - accept a triggerOutput of type T,
  */
 @Filter(
-        id = "filFoo",
-        inputType = Comparable.class,
-        description = "..."
+    id = "filFoo",
+    inputType = Comparable.class,
+    description = "..."
 )
 public class FooFilter extends AbstractFilter<Comparable> {
     private Comparable compareValue;
@@ -35,6 +35,7 @@ public class FooFilter extends AbstractFilter<Comparable> {
 
     /**
      * Load used options.
+     *
      * @param options: options to load.
      */
     @Override
@@ -44,22 +45,25 @@ public class FooFilter extends AbstractFilter<Comparable> {
         }
     }
 
+
     /**
      * List which options are loaded by the filter.
+     *
      * @return collection of used options.
      */
     @Override
     public List<OptionDescription> acceptedClassOptions() {
         List<OptionDescription> acceptedOptions = new ArrayList<>(Arrays.asList(
-                new OptionDescription(
-                        "compareValue", // name of the option
-                        "Value to compare the filter with.", // description of the option
-                        Comparable.class, // type of the option
-                        "null", // default value of the option
-                        true // is option mandatory?
-                )));
+            new OptionDescription(
+                "compareValue", // name of the option
+                "Value to compare the filter with.", // description of the option
+                Comparable.class, // type of the option
+                "null", // default value of the option
+                true // is option mandatory?
+            )));
         return acceptedOptions;
     }
+
 
     /**
      * Initialize options with default values.
@@ -68,6 +72,7 @@ public class FooFilter extends AbstractFilter<Comparable> {
     public void initializeClassOptions() {
 
     }
+
 
     /**
      * Perform the purpose of the filter.

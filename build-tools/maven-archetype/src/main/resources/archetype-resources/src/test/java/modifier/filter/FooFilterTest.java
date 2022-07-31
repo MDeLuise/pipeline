@@ -16,6 +16,7 @@ public class FooFilterTest extends BaseFilterTest {
         filter = new FooFilter();
     }
 
+
     @Test
     public void shouldFilterTrueInt() {
         int value = 1;
@@ -24,6 +25,7 @@ public class FooFilterTest extends BaseFilterTest {
         filter.loadOptions(options);
         Assert.assertTrue(filter.filter(triggerOutput));
     }
+
 
     @Test
     public void shouldFilterFalseInt() {
@@ -34,6 +36,7 @@ public class FooFilterTest extends BaseFilterTest {
         Assert.assertFalse(filter.filter(triggerOutput));
     }
 
+
     @Test
     public void shouldFilterTrueString() {
         String value = "String42";
@@ -42,6 +45,7 @@ public class FooFilterTest extends BaseFilterTest {
         filter.loadOptions(options);
         Assert.assertTrue(filter.filter(triggerOutput));
     }
+
 
     @Test
     public void shouldFilterFalseString() {
@@ -52,12 +56,14 @@ public class FooFilterTest extends BaseFilterTest {
         Assert.assertFalse(filter.filter(triggerOutput));
     }
 
+
     @Test
     public void shouldAcceptUnknownOption() {
         insertInMockedOptions("foo", "bar");
         insertInMockedOptions("compareValue", "foo");
         filter.loadOptions(options);
     }
+
 
     @Test(expected = OptionMismatchTypeException.class)
     public void shouldThrowExceptionIfWrongOptionType() {

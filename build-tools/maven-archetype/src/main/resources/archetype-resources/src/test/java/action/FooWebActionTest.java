@@ -25,6 +25,7 @@ public class FooWebActionTest extends BaseActionUnitTest {
         action = new SimpleFooAction();
     }
 
+
     @Test
     public void shouldProcessNextInChain() {
         TriggerOutputProcessor triggerOutputProcessor = Mockito.mock(TriggerOutputProcessor.class);
@@ -36,6 +37,7 @@ public class FooWebActionTest extends BaseActionUnitTest {
         ).process(triggerOutput);
     }
 
+
     @Test
     public void shouldAcceptUnknownOption() {
         insertInMockedOptions("foo", "bar");
@@ -43,11 +45,13 @@ public class FooWebActionTest extends BaseActionUnitTest {
         action.loadOptions(options);
     }
 
+
     @Test(expected = OptionMismatchTypeException.class)
     public void shouldThrowExceptionIfWrongOptionType() {
         insertInMockedOptions("tokenVar", false);
         action.loadOptions(options);
     }
+
 
     @Test
     public void shouldActionCorrectly() {
@@ -58,9 +62,9 @@ public class FooWebActionTest extends BaseActionUnitTest {
         action.doAction(triggerOutput);
 
         ArgumentCaptor<WebApiConfiguration> argument =
-                ArgumentCaptor.forClass(WebApiConfiguration.class);
+            ArgumentCaptor.forClass(WebApiConfiguration.class);
         Mockito.verify(webApi, Mockito.times(1)).
-                configure(argument.capture());
+            configure(argument.capture());
         Assert.assertEquals(triggerOutputValue, argument.getValue().get("text"));
     }
 

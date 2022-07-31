@@ -31,6 +31,7 @@ public class BaseActionUnitTest {
         LoggerHandler.disableLog();
     }
 
+
     protected void insertInMockedOptions(String key, Object value) {
         keys.add(key);
         Mockito.when(options.get(key)).thenAnswer(foo -> value);
@@ -39,6 +40,7 @@ public class BaseActionUnitTest {
         Mockito.when(options.getKeys()).thenAnswer(foo -> keys);
         Mockito.when(options.size()).thenAnswer(foo -> keys.size());
     }
+
 
     protected void insertInMockedTriggerOutput(Object value) {
         Mockito.when(triggerOutput.getValue()).thenAnswer(foo -> value);
